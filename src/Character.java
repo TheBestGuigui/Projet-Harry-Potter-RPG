@@ -129,11 +129,11 @@ public abstract class Character {
                 scanner.nextLine();
 
                 if (choice < 1 || choice > 4) {
-                    System.out.println("Vous devez choisir un nombre compris entre 1 et 3.");
+                    System.out.println("You must choose a number between 1 and 3.");
                     continue;
                 }
 
-                switch (choice) {
+                switch (WizardChoice) {
                     case 1 -> {
                         comeback = spellList(wizard, enemy);
                         if (enemy.getHealth_point() <= 0) {
@@ -148,7 +148,7 @@ public abstract class Character {
 
 
             } catch (InputMismatchException e) {
-                System.out.println("Vous devez obligatoirement utiliser un nombre pour choisir votre action à effectuer.");
+                    System.out.println("Vous devez obligatoirement utiliser un nombre pour choisir votre action à effectuer.");
                 scanner.next();
             }
             if (enemy.getDistance() == 1 && Level2.tooth) {
@@ -231,16 +231,37 @@ public abstract class Character {
     private static boolean WizardAttackTroll(Wizard wizard, Enemy enemy) {
         Scanner scanner = new Scanner(System.in);
         int EnemyHP = Enemy.troll.getHealth_point();
-        int YourDamage = (wizard.getCombat_power() + wizard.getPowerBonus()) - Enemy.troll.getDefense();
-        Enemy.setHealth_point(EnemyHP - YourDamage);
-        System.out.println("" + YourDamage + "");
-        if (Enemy.troll.getHealth_point() <= 0) {
-            System.out.println("");
-            return true;
-        } else {
-        System.out.println("");
-        }
-        return false;
+        System.out.println("The battle against the Troll is on  !" + "\n The Troll has " + EnemyHP + "health points." + "\n What do you wish to do ?" + "\n 1: Use a spell." + "\n 2: Open your inventory." + "\n 3: Flee.");
+        try {
+            int WizardChoice = scanner.nextInt();
+            scanner.nextLine();
+
+            if (WizardChoice < 1 || WizardChoice > 3) {
+                System.out.println("You must choose a number between 1 and 3.");
+                continue;
+            }
+
+            switch (WizardChoice) {
+                case 1 -> {
+                     = Using_Spells(wizard, enemy);
+                    if (Enemy.troll.getHealth_point() <= 0) {
+                        return true;
+                    }
+                }
+                    System.out.println("You are familiar with the following spells :" + "\n 1: " + "\n 2: Windgardium Leviosa");
+                    int SpellChosen = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (SpellChosen) {
+                        case 1 -> {
+
+                        }
+                        case 2 -> {
+
+                        }
+            } catch (InputMismatchException e) {
+                System.out.println("You must use a number to choose your action.");
+                scanner.nextLine();
+            }
     }
 
     private static boolean TrollAttackWizard(Wizard wizard, Enemy enemy) {
@@ -258,75 +279,24 @@ public abstract class Character {
         return false;
     }
 
-    private static boolean spellList(Wizard wizard, Enemy enemy) {
+    private static boolean Using_Spells(Wizard wizard, Enemy enemy) {
+        Scanner scanner = new Scanner(System.in);
         int numSpells = wizard.getKnownSpells().size();
-        if (numSpells == 0) {
-            System.out.println("Vous n'avez appris aucun sort.");
-            return true;
-        } else {
-            System.out.println(ConsoleColors.BLUE + "\nVeuillez choisir un sort :" + ConsoleColors.RESET);
-            for (int i = 0; i < numSpells; i++) {
-                System.out.println((i + 1) + " : " + wizard.getKnownSpells().get(i).getName());
-            }
-            System.out.println((numSpells + 1) + " : Ne pas utiliser de sort.");
-            int choice = -1;
-            do {
-                Scanner scanner = new Scanner(System.in);
-                try {
-                    choice = scanner.nextInt();
-                    if (choice < 1 || choice > numSpells + 1) {
-                        System.out.println("Veuillez entrer un choix valide.");
-                    }
-                } catch (InputMismatchException e) {
-                    System.out.println("Veuillez entrer un choix valide.");
-                    scanner.next();
-                }
-            } while (choice < 1 || choice > numSpells + 1);
-            if (choice == numSpells + 1) {
-                return true;
-            }
-            Spell chosenSpell = wizard.getKnownSpells().get(choice - 1);
-            System.out.println("Vous avez choisi le sort " + chosenSpell.getName() + ".");
-            if (chosenSpell == Spell.windgardiumLeviosa && Enemy.troll == enemy) {
-                int chanceOfSuccess = 0;
-                if (enemy.getDistance() <= 7) {
-                    System.out.println("Vous utilisez Windgardium Leviosa sur la massue du troll !");
-                    chanceOfSuccess = 100 - (enemy.getDistance() * 5) + wizard.getAccuracyBonus();
-                    System.out.println("Vous êtes à " + enemy.getDistance() + " mètres du troll. Votre chance de réussite est de " + chanceOfSuccess + "%.");
-                    Random random = new Random();
-                    int randomValue = random.nextInt(101);
-                    if (randomValue <= chanceOfSuccess) {
-                        System.out.println("Votre sort atteint la massue du troll, vous diriger alors la massue plusieurs mètres au dessus de ca tete et la laisser tombé ce qui assomme le troll.");
-                        enemy.setLifePoints(0);
-                        return true;
-                    } else {
-                        System.out.println("Vous ratez votre sort de justesse.");
-                    }
-                } else {
-                    System.out.println("Vous êtes à " + enemy.getDistance() + " mètres du troll. Votre chance de réussite est de " + chanceOfSuccess + "%., si vous aviez mieux écouter le cours vous sauriez que pour utiliser Windgarium leviosa \nil faut etre à 7 mètres ou moins pour que le sort est une chance de reussir et que plus vous etes proche plus vous augementer vos chances.");
-                }
-            } else if (chosenSpell == Spell.aloomora) {
-                //effet aloomora
-            } else if (chosenSpell == Spell.immobulus) {
-                // effet imobulus
-            } else if (chosenSpell == Spell.accio && enemy == Enemy.basilic) {
-                int chanceOfSuccess = 0;
-                if (enemy.getDistance() <= 7) {
-                    System.out.println("Vous utilisez Accio en visant la machoire du basilic !");
-                    chanceOfSuccess = 100 - (enemy.getDistance() * 5) + wizard.getAccuracyBonus();
-                    System.out.println("Vous êtes à " + enemy.getDistance() + " mètres du basilic. Votre chance de réussite est de " + chanceOfSuccess + "%.");
-                    Random random = new Random();
-                    int randomValue = random.nextInt(101);
-                    if (randomValue <= chanceOfSuccess) {
-                        System.out.println("Votre sort atteint les dents du basilic, une d'entre elles se décroche commence à venir vers vous mais vous la faite tomber au sol à 1m du basilic.");
-                        Level2.tooth = true;
-                        return true;
-                    } else {
-                        System.out.println("Vous ratez votre sort de justesse.");
-                    }
-                }
-            }
-            System.out.println("Votre sort n'a rien fait au " + enemy.getName());
+        System.out.println("You are familiar with the following spells :");
+        for (int i=0; i<numSpells; i++) {
+            System.out.println((i+1) + " :" + wizard.getKnownSpells().get(i).getName());
         }
-        return false;
+        try {
+            int NumberChosen = scanner.nextInt();
+            if (NumberChosen < 1 || NumberChosen > numSpells) {
+                System.out.println("You must choose a number between 1 and " + numSpells);
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("You must use a number to choose your action.");
+            scanner.next();
+        }
+        Spell SpellChosen = wizard.getKnownSpells().get(NumberChosen - 1);
+        return false
+    }
 }
+
