@@ -1,23 +1,21 @@
 package Game;
 
-import Level.Introduction;
-import Level.Level1;
-import Level.Level2;
-import Level.Level3;
-import Level.Level4;
-import Level.Level5;
-import Level.Level6;
-import Level.Level7;
+import Levels.Introduction;
+import Levels.Level_1;
+import Levels.Level_2;
+import Levels.Level_3;
+import Levels.Level_4;
+import Levels.Level_5;
+import Levels.Level_6;
+import Levels.Level_7;
 import Levels.*;
 
 public class Game {
     private Wizard wizard;
 
     public static void main(String[] args) {
-        // initialisation
         Wizard wizard = new wizard(null, null, null, null);
 
-//        Wizard wizard = new Wizard("mini", Pet.Owl, new Wand(Core.DragonHeartstring, 23), House.GRYFFINDOR);
         new Introduction().Introduction(wizard);
         Level_1.level1(wizard);
         if (!wizard.getIsAlive()) {

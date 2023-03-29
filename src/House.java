@@ -4,14 +4,18 @@ public enum House {
     GRYFFINDOR,
     RAVENCLAW;
 
-    final String House_name;
+    private final String House_name;
+
+    House(String name) {
+        this.House_name = name;
+    }
 
     @Override
     public String toString() {
         return this.House_name;
     }
 
-    public void setHouseBonus(Wizard wizard) {
+    public void set_Bonus_House(House wizard) {
         House house = wizard.getHouse();
         switch (house) {
             case HUFFLEPUFF:
@@ -28,6 +32,4 @@ public enum House {
                 break;
         }
     }
-
-
 }

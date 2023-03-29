@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 import Levels.Level_1;
 public abstract class Character {
 
@@ -124,8 +125,8 @@ public abstract class Character {
 
 
             } catch (InputMismatchException e) {
-                System.out.println("Le choix doit être un nombre.");
-                scanner.nextLine();
+                System.out.println("Vous devez obligatoirement utiliser un nombre pour choisir votre action à effectuer.");
+                scanner.next();
             }
             if (enemy.getDistance() == 1 && Level2.tooth) {
                 System.out.println("Vous ramassez la dent du basilic pour le frappez ce qui lui enlève 50 points de vie.");
@@ -167,7 +168,7 @@ public abstract class Character {
 
     private static boolean trollAttackWizard(Wizard wizard, Enemy enemy) {
         Scanner scanner = new Scanner(System.in);
-        int wizardLife = wizard.getLifePoint();
+        int wizardLife = wizard.getHealth_point();
         int chanceOfSuccess = 0;
         chanceOfSuccess = 40 + listFriendsWithYou(wizard).size() * 20;
         System.out.println("\nVous êtes " + (int) (listFriendsWithYou(wizard).size() + 1) + " contre le troll. La probabilité qu'il vous touche est de " + chanceOfSuccess + "%.");
@@ -282,16 +283,16 @@ public abstract class Character {
         return false;
     }
 
-    public static void fight(Wizard wizard, Enemy enemy, List<Friend> listFriendsWithYou) {
+    public static void Fight_enemy(Wizard wizard, Enemy enemy) {
         boolean enemyAlive = false;
         boolean wizardAlive = false;
-        while (enemy.getDistance() >= 1 && !enemyAlive && !wizardAlive) {
+        while (enemyAlive && !wizardAlive) {
             enemyAlive = wizardAttacksWho(wizard, enemy);
             if (enemy.getDistance() < 1) {
                 wizardAlive = true;
                 break;
             }
-            if (enemyAlive || enemy.getLifePoints() <= 0) {
+            if (enemyAlive || enemy.getHealth_point() <= 0) {
                 break;
             }
             for (int i = 0; i < listFriendsWithYou.size(); i++) {
@@ -313,16 +314,9 @@ public abstract class Character {
                 break;
             }
             wizardAlive = whoAttacksWizard(wizard, enemy);
-
         }
-
-        if (enemy.getDistance() < 1) {
-            wizard.setLifePoint(0);
-            System.out.println("Quel idée de se coller au " + enemy.getName() + " ! Celui-ci vous mange.");
-        }
-
-        if (enemyAlive || enemy.getLifePoints() <= 0) {
-            System.out.println("Vous avez vaincu le " + enemy.getName() + " !");
+        if (enemyAlive || enemy.getHealth_point() <= 0) {
+            System.out.println("Vous êtes finalement parvenu à vaincre le " + enemy.getName() + ", félicitations !");
         }
     }
 

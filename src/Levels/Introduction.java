@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Introduction {
-    public void level0(Wizard wizard) {
+    public void Introduction(Wizard wizard) {
         int money = wizard.getMoney();
 
         Scanner scanner = new Scanner(System.in);

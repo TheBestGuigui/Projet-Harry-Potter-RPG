@@ -1,52 +1,47 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class SortingHat {
-    public SortingHat() {
-    }
+    public final House[] houses = {House.RAVENCLAW, House.SLYTHERIN, House.GRYFFINDOR, House.HUFFLEPUFF};
 
-    public static House Select_House() {
-        return new House(House.House_Name[(int)(Math.random() * (double)House.House_Name.length - 1.0)]);
-    }
+        public House Select_House(Scanner scanner) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("The Sorting Hat whispers to you inwardly :" + "\n Is there a House you really want to join ?" + "\n Choose your House :" + "\n 1: HUFFLEPUFF," + "\n 2: SLYTHERIN," + "\n 3: GRYFFINDOR," + "\n 4: RAVENCLAW," + "\n 5: Let the Sorting Hat decide.");
+            try {
+                int Choice_House = scanner.nextInt();
+                scanner.nextLine();
 
-
-    public class SortingHat {
-
-        public final House[] houses = {House.RAVENCLAW, House.SLYTHERIN, House.GRYFFINDOR, House.HUFFLEPUFF};
-
-
-        //methode pour notre perso
-        public House sort(Scanner scanner) {
-            System.out.println("\t- " + ConsoleColors.ORANGE + "Choixpeau" + ConsoleColors.RESET + " : \"Humm, difficile, très difficile, beaucoup de courage, des facilités, une soif de faire tes preuves. Où puis je te mettre ?\"");
-            System.out.println(ConsoleColors.BLUE + "\n Choisissez le numéro de la maison que vous ne souhaitez pas :" + ConsoleColors.RESET);
-            for (int i = 0; i < houses.length; i++) {
-                System.out.println((i + 1) + ". " + houses[i]);
-            }
-
-            int excludedHouseIndex = 0;
-            boolean isExcludedHouseValid = false;
-            while (!isExcludedHouseValid) {
-                try {
-                    excludedHouseIndex = scanner.nextInt();
-                    scanner.nextLine();
-                    if (excludedHouseIndex < 1 || excludedHouseIndex > houses.length) {
-                        System.out.println("Numéro de maison invalide !");
-                    } else {
-                        isExcludedHouseValid = true;
-                    }
-                } catch (InputMismatchException e) {
-                    System.out.println("Numéro de maison invalide !");
-                    scanner.nextLine();
+                if (Choice_House < 1 || Choice_House > 4) {
+                    System.out.println("Vous devez choisir un nombre compris entre 1 et 3.");
+                    continue;
                 }
+
+                switch (Choice_House) {
+                    case 1 -> {
+                        System.out.println("Very well, I have made up my mind, your house will be: 'HUFFLEPUFF'");
+                        return houses[0];
+                    }
+                    case 2 -> {
+                        System.out.println("Very well, I have made up my mind, your house will be: 'SLYTHERIN'");
+                        return houses[1];
+                    }
+                    case 3 -> {
+                        System.out.println("Very well, I have made up my mind, your house will be: 'GRYFFINDOR'");
+                        return houses[2];
+                    }
+                    case 4 -> {
+                        System.out.println("Very well, I have made up my mind, your house will be: 'RAVENCLAW'");
+                        return houses[3];
+                    }
+                    case 5 -> {
+                        int nbr_random = 0 + (int)(Math.random() * 4);
+                        return houses[nbr_random];
+                    }
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Vous devez obligatoirement utiliser un nombre pour choisir votre action à effectuer.");
+                scanner.next();
             }
-            Random random = new Random();
-            int index = random.nextInt(houses.length - 1);
-            if (index >= excludedHouseIndex - 1) {
-                index++;
-            }
-            return houses[index];
         }
-
-    }
-
 }
