@@ -64,13 +64,13 @@ public class Wizard extends Character{
     }
 
     public List<Spell> getKnownSpells() {
-        return knownSpells;
+        return knownspells;
     }
     public void setKnownSpells(List<Spell> knownSpells) {
-        this.knownSpells = knownSpells;
+        this.knownspells = knownSpells;
     }
     public void addSpell(Spell spell) {
-        this.knownSpells.add(spell);
+        this.knownspells.add(spell);
     }
 
     public List<Potion> getPotions() {
