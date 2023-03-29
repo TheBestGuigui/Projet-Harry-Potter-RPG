@@ -4,11 +4,11 @@ public enum House {
     GRYFFINDOR,
     RAVENCLAW;
 
-    final String name;
+    final String House_name;
 
     @Override
     public String toString() {
-        return this.name;
+        return this.House_name;
     }
 
     public void setHouseBonus(Wizard wizard) {
