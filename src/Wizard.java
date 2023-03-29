@@ -29,7 +29,7 @@ public class Wizard extends Character{
         }
 
         public Wizard(String name, Pet pet, Wand wand, House house) {
-            this(name, pet, wand, house, new ArrayList<>(), new ArrayList<>();
+            this(name, pet, wand, house, new ArrayList<>(), new ArrayList<>());
         }
 
 
