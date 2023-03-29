@@ -39,6 +39,12 @@ public class Enemy {
         this.attack_damage = attack_damage;
     }
 
-    public static Enemy troll = new Enemy("Troll des montagnes", "Troll", 100, 10, 30);
-    public static Enemy basilic = new Enemy("Basilic de Salazar Serpentard", "Basilic", 100, 3, 20);
+    public static Enemy troll = new Enemy("Troll of the dungeon", "Troll", 100, 10);
+    public static Enemy basilic = new Enemy("Basil of the Chamber of Secrets", "Basilic", 100, 3);
+    public static Enemy Dementor = new Enemy("Dementor", "Unknown", 100, 10);
+    public static Enemy Voldemort = new Enemy("Voldemort", "Unknown", 100, 10);
+    public static Enemy Peter_Pettigrow = new Enemy("Peter Pettigrow", "Human", 100, 10);
+    public static Enemy Dolores_Ombrage = new Enemy("Dolores Ombrage", "Human", 100, 10);
+    public static Enemy Death_Eater = new Enemy("Death Eater", "Unknown", 100, 10);
+    public static Enemy Bellatrix_Lestrange = new Enemy("Bellatrix Lestrange", "Human", 100, 10);
 }

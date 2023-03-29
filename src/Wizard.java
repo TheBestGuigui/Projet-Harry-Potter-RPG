@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Wizard extends Character{
@@ -7,12 +8,12 @@ public class Wizard extends Character{
     private House house;
     private AbstractSpell knownspells;
     private Potion potions;
-    public String Stats(String name, int hp, int defense, int power, int potion_efficiency, int money) {
+    public String Stats(String name, int hp, int max_hp, int defense, int power, int potion_efficiency, int money) {
         return "\n Your Statistics :" + "\n Name :" + name + "\n Health Points :" + hp + "\n Defense :" + defense + "\n Combat Power :" + power + "\n Potion Efficiency :" + potion_efficiency + "\n Money :" + money + "€";
     }
 
     public Wizard(String name, Pet pet, Wand wand, House house, AbstractSpell knownspells, Potion potions) {
-            super(500, 100, power , potion_efficiency , money , true);
+            super(name, 500,500, 0 , 0 , 0 , 0, 200, true);
             this.name = name;
             this.pet = pet;
             this.wand = wand;
@@ -26,6 +27,11 @@ public class Wizard extends Character{
                 Wizard.setIsAlive(false);
             }
         }
+
+        public Wizard(String name, Pet pet, Wand wand, House house) {
+            this(name, pet, wand, house, new ArrayList<>(), new ArrayList<>();
+        }
+
 
     @Override
     public String getName() {return name;}

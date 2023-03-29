@@ -3,8 +3,8 @@ import Levels.Level_1;
 public abstract class Character {
 
     private final String name;
-
     private int health_point;
+    private int max_health_point;
 
     private int accuracyBonus;
 
@@ -19,9 +19,10 @@ public abstract class Character {
     private boolean IsAlive;
 
 
-    public Character(String name, int hp, int accuracyBonus, int powerBonus, int efficiencyPotionsBonus, int resistanceBonus, int money, boolean is_alive) {
+    public Character(String name, int hp, int max_hp, int accuracyBonus, int powerBonus, int efficiencyPotionsBonus, int resistanceBonus, int money, boolean is_alive) {
         this.name = name;
         this.health_point = hp;
+        this.max_health_point = max_hp;
         this.accuracyBonus = accuracyBonus;
         this.powerBonus = powerBonus;
         this.efficiencyPotionsBonus = efficiencyPotionsBonus;
