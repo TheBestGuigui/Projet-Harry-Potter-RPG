@@ -118,9 +118,6 @@ public abstract class Character {
                     case 2 -> {
                         comeback = Inventory.openInventory(wizard, enemy);
                     }
-                    case 3 -> {
-                        comeback =
-                    }
 
                 }
 

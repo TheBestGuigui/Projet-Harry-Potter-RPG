@@ -27,54 +27,26 @@ public class Wizard extends Character{
         }
 
     @Override
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getName() {return name;}
 
-    public Pet getPet() {
-        return pet;
-    }
-    public void setPet(Pet pet) {
-        this.pet = pet;
-    }
+    public void setName(String name) {this.name = name;}
 
-    public Wand getWand() {
-        return wand;
-    }
-    public void setWand(Wand wand) {
-        this.wand = wand;
-    }
+    public Pet getPet() {return pet;}
+    public void setPet(Pet pet) {this.pet = pet;}
 
-    public House getHouse() {
-        return house;
-    }
-    public void setHouse(House house) {
-        this.house = house;
-    }
+    public Wand getWand() {return wand;}
+    public void setWand(Wand wand) {this.wand = wand;}
 
-    public List<Spell> getKnownSpells() {
-        return knownSpells;
-    }
-    public void setKnownSpells(List<Spell> knownSpells) {
-        this.knownSpells = knownSpells;
-    }
-    public void addSpell(Spell spell) {
-        this.knownSpells.add(spell);
-    }
+    public House getHouse() {return house;}
+    public void setHouse(House house) {this.house = house;}
 
-    public List<Potion> getPotions() {
-        return potions;
-    }
-    public void setPotions(List<Potion> potions) {
-        this.potions = potions;
-    }
-    public void addPotion(Potion potion) {
-        this.potions.add(potion);
-    }
-    }
+    public List<Spell> getKnownSpells() {return knownSpells;}
+    public void setKnownSpells(List<Spell> knownSpells) {this.knownSpells = knownSpells;}
+    public void addSpell(Spell spell) {this.knownSpells.add(spell);}
 
+    public List<Potion> getPotions() {return potions;}
+    public void setPotions(List<Potion> potions) {this.potions = potions;}
+    public void addPotion(Potion potion) {this.potions.add(potion);}
+    }
 }
 
