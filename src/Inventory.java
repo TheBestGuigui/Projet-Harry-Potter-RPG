@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Inventory {
     public static boolean openInventory(Wizard wizard, Enemy enemy) {
@@ -28,7 +29,11 @@ public class Inventory {
                         return true;
                     }
                 }
+            } catch (InputMismatchException e) {
+                System.out.println("Vous devez obligatoirement utiliser un nombre pour choisir votre action à effectuer.");
+                scanner.nextLine();
             }
+        }
         return false;
         }
 
@@ -49,8 +54,12 @@ public class Inventory {
                 try {
                     choice = scanner.nextInt();
                     if (choice < 1 || choice > numPotions + 1) {
-                        System.out.println("Veuillez entrer un choix valide.");
+                        System.out.println("Vous devez choisir un nombre compris entre 1 et 3.");
                     }
+                } catch (InputMismatchException e) {
+                    System.out.println("Vous devez obligatoirement utiliser un nombre pour choisir votre action à effectuer.");
+                    scanner.next();
+                }
             } while (choice < 1 || choice > numPotions + 1);
             if (choice == numPotions + 1) {
                 return true;
@@ -73,9 +82,7 @@ public class Inventory {
                 wizard.setAccuracyBonus(wizard.getAccuracyBonus() + chosenPotion.getValue() + (chosenPotion.getValue() * wizard.getEfficiencyPotionsBonus()) / 100);
                 wizard.getPotions().remove(choice - 1);
             }
-
         }
         return false;
     }
-
 }

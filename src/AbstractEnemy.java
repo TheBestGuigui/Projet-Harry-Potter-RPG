@@ -1,4 +1,4 @@
 public abstract class AbstractEnemy {
-    public AsbtractEnemy() {
+    public AbstractEnemy() {
     }
 }

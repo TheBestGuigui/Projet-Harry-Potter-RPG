@@ -12,5 +12,6 @@ public class Level_1 {
         wizard.checkIsAlive(wizard);
         if (!wizard.getIsAlive()) {
             return;
+        }
     }
 }
