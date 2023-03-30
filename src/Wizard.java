@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Wizard extends Character{
+public class Wizard extends Character {
     private String name;
     private Pet pet;
     private Wand wand;
@@ -14,7 +14,7 @@ public class Wizard extends Character{
     }
 
     public Wizard(String name, Pet pet, Wand wand, House house, AbstractSpell knownspells, Potion potions) {
-            super(name, 500,500, 0 , 0 , 0 , 0, 200, true);
+            super(name, 500,500, 20 , 20 , 0 , 0, 0, 0, 200, true);
             this.name = name;
             this.pet = pet;
             this.wand = wand;

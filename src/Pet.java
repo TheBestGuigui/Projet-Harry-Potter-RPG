@@ -2,14 +2,14 @@ public enum Pet {
     OWL,
     RAT,
     CAT,
-    TOAD,
-    DRAGON,
     DOG,
-    PYGMY_PUFFS,
-    THREE_HEADED_DOG,
-    GIANT_SPIDER,
+    TOAD,
     SNAKE,
+    GIANT_SPIDER,
+    PYGMY_PUFFS,
     HIPPOGRIFF,
+    THREE_HEADED_DOG,
+    DRAGON,
     PHOENIX;
 
     public final int index;

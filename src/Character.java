@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
-import Levels.Level_1;
+import java.util.Random;
+
 public abstract class Character {
 
     private final String name;
@@ -22,7 +23,7 @@ public abstract class Character {
     private boolean IsAlive;
 
 
-    public Character(String name, int hp, int max_hp, int combat_power, defense, int accuracyBonus, int powerBonus, int efficiencyPotionsBonus, int resistanceBonus, int money, boolean is_alive) {
+    public Character(String name, int hp, int max_hp, int combat_power, int defense, int accuracyBonus, int powerBonus, int efficiencyPotionsBonus, int resistanceBonus, int money, boolean is_alive) {
         this.name = name;
         this.health_point = hp;
         this.max_health_point = max_hp;
@@ -125,17 +126,17 @@ public abstract class Character {
             System.out.println("3: Essayer de vous enfuir");
 
             try {
-                int choice = scanner.nextInt();
+                int WizardChoice = scanner.nextInt();
                 scanner.nextLine();
 
-                if (choice < 1 || choice > 4) {
+                if (WizardChoice < 1 || WizardChoice > 4) {
                     System.out.println("You must choose a number between 1 and 3.");
                     continue;
                 }
 
                 switch (WizardChoice) {
                     case 1 -> {
-                        comeback = spellList(wizard, enemy);
+                        comeback = Using_Spells(wizard, enemy);
                         if (enemy.getHealth_point() <= 0) {
                             return true;
                         }
@@ -151,18 +152,6 @@ public abstract class Character {
                     System.out.println("Vous devez obligatoirement utiliser un nombre pour choisir votre action à effectuer.");
                 scanner.next();
             }
-            if (enemy.getDistance() == 1 && Level2.tooth) {
-                System.out.println("Vous ramassez la dent du basilic pour le frappez ce qui lui enlève 50 points de vie.");
-                enemy.setLifePoints(enemy.getLifePoints() - 50 - (50 * wizard.getPowerBonus()) / 100);
-                if (enemy.getLifePoints() > 0) {
-                    System.out.println("mais celui-ci riposte,vous lâchez la dents et vous êtes repoussé d'un mètre.");
-                    enemy.setDistance(2);
-                } else {
-                    return true;
-                }
-
-
-            }
         }
         return false;
     }
@@ -172,10 +161,6 @@ public abstract class Character {
     private static boolean WizardAttacksEnemy(Wizard wizard, Enemy enemy) {
         if (enemy == Enemy.troll) {
             return WizardAttackTroll(wizard, enemy);
-        } else if (enemy == Enemy.basilic) {
-            return WizardAttackBasilic(wizard, enemy);
-        } else if (enemy == ) {
-
         }
         return false;
     }
@@ -183,10 +168,6 @@ public abstract class Character {
     private static boolean EnemyAttacksWizard(Wizard wizard, Enemy enemy) {
         if (enemy == Enemy.troll) {
             return TrollAttackWizard(wizard, enemy);
-        } else if (enemy == Enemy.basilic) {
-            return BasilicAttackWizard(wizard, enemy);
-        } else if (enemy == ) {
-
         }
         return false;
     }
@@ -196,26 +177,7 @@ public abstract class Character {
         boolean wizardAlive = false;
         while (enemyAlive && !wizardAlive) {
             enemyAlive = WizardAttacksEnemy(wizard, enemy);
-            if (enemy.getDistance() < 1) {
-                wizardAlive = true;
-                break;
-            }
             if (enemyAlive || enemy.getHealth_point() <= 0) {
-                break;
-            }
-            for (int i = 0; i < listFriendsWithYou.size(); i++) {
-                System.out.println("\nVotre ami " + listFriendsWithYou.get(i).getName() + " peut aussi attaquer le " + enemy.getName() + ".");
-                enemyAlive = WizardAttacksEnemy(wizard, enemy);
-                if (enemy.getDistance() < 1) {
-                    wizardAlive = true;
-                    break;
-                }
-                if (enemyAlive) {
-                    break;
-                }
-            }
-            if (enemy.getDistance() < 1) {
-                wizardAlive = true;
                 break;
             }
             if (enemyAlive || enemy.getHealth_point() <= 0) {
@@ -230,38 +192,43 @@ public abstract class Character {
 
     private static boolean WizardAttackTroll(Wizard wizard, Enemy enemy) {
         Scanner scanner = new Scanner(System.in);
+        boolean WinCond = true;
         int EnemyHP = Enemy.troll.getHealth_point();
-        System.out.println("The battle against the Troll is on  !" + "\n The Troll has " + EnemyHP + "health points." + "\n What do you wish to do ?" + "\n 1: Use a spell." + "\n 2: Open your inventory." + "\n 3: Flee.");
-        try {
-            int WizardChoice = scanner.nextInt();
-            scanner.nextLine();
+        while (EnemyHP < 0) {
+            System.out.println("The battle against the Troll is on  !" + "\n The Troll has " + EnemyHP + "health points." + "\n What do you wish to do ?" + "\n 1: Use a spell." + "\n 2: Open your inventory." + "\n 3: Flee.");
+            try {
+                int WizardChoice = scanner.nextInt();
+                scanner.nextLine();
 
-            if (WizardChoice < 1 || WizardChoice > 3) {
-                System.out.println("You must choose a number between 1 and 3.");
-                continue;
-            }
+                if (WizardChoice < 1 || WizardChoice > 3) {
+                    System.out.println("You must choose a number between 1 and 3.");
+                }
 
-            switch (WizardChoice) {
-                case 1 -> {
-                     = Using_Spells(wizard, enemy);
-                    if (Enemy.troll.getHealth_point() <= 0) {
-                        return true;
+                switch (WizardChoice) {
+                    case 1 -> {
+                        WinCond = Using_Spells(wizard, enemy);
+                        if (Enemy.troll.getHealth_point() <= 0) {
+                            return true;
+                        }
                     }
                 }
-                    System.out.println("You are familiar with the following spells :" + "\n 1: " + "\n 2: Windgardium Leviosa");
-                    int SpellChosen = scanner.nextInt();
-                    scanner.nextLine();
-                    switch (SpellChosen) {
-                        case 1 -> {
+                System.out.println("You are familiar with the following spells :" + "\n 1: " + "\n 2: Windgardium Leviosa");
+                int SpellChosen = scanner.nextInt();
+                scanner.nextLine();
+                switch (SpellChosen) {
+                    case 1 -> {
 
-                        }
-                        case 2 -> {
+                    }
+                    case 2 -> {
 
-                        }
-            } catch (InputMismatchException e) {
+                    }
+                }
+            } catch(InputMismatchException e){
                 System.out.println("You must use a number to choose your action.");
                 scanner.nextLine();
             }
+        }
+
     }
 
     private static boolean TrollAttackWizard(Wizard wizard, Enemy enemy) {
@@ -279,24 +246,49 @@ public abstract class Character {
         return false;
     }
 
-    private static boolean Using_Spells(Wizard wizard, Enemy enemy) {
-        Scanner scanner = new Scanner(System.in);
-        int numSpells = wizard.getKnownSpells().size();
-        System.out.println("You are familiar with the following spells :");
-        for (int i=0; i<numSpells; i++) {
-            System.out.println((i+1) + " :" + wizard.getKnownSpells().get(i).getName());
-        }
-        try {
-            int NumberChosen = scanner.nextInt();
-            if (NumberChosen < 1 || NumberChosen > numSpells) {
-                System.out.println("You must choose a number between 1 and " + numSpells);
+    private static boolean Using_Spells(Wizard wizard, Enemy enemy){
+                Scanner scanner = new Scanner(System.in);
+                int numSpells = wizard.getKnownSpells().size();
+                System.out.println("You are familiar with the following spells :");
+                for (int i = 0; i < numSpells; i++) {
+                    System.out.println((i + 1) + " :" + wizard.getKnownSpells().get(i).getName());
+                }
+                int NumberChosen = 0;
+                try {
+                    NumberChosen = scanner.nextInt();
+                    if (NumberChosen < 1 || NumberChosen > numSpells) {
+                        System.out.println("You must choose a number between 1 and " + numSpells);
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("You must use a number to choose your action.");
+                    scanner.next();
+                }
+                Spell SpellChosen = wizard.getKnownSpells().get(NumberChosen - 1);
+                if (SpellChosen == Spell.Stupefix) {
+
+                } else if (SpellChosen == Spell.Protego) {
+
+                } else if (SpellChosen == Spell.windgardiumLeviosa) {
+
+                } else if (SpellChosen == Spell.windgardiumLeviosa && Enemy.troll == enemy) {
+                    Random random = new Random();
+                    int nbr_random = random.nextInt(101);
+                    if (nbr_random <= SpellChosen.getAccuracy()) {
+                        System.out.println("You use the Wingardium Leviosa spell on the troll's club to stun it.");
+                        enemy.setHealth_point(0);
+                        return false;
+                    } else {
+                        System.out.println("You missed your spell on " + enemy.getName() + ".");
+                    }
+
+                } else if (SpellChosen == Spell.Accio && Enemy.basilic == enemy) {
+
+                }
+
+
+
+
+                return false;
             }
-        } catch (InputMismatchException e) {
-            System.out.println("You must use a number to choose your action.");
-            scanner.next();
-        }
-        Spell SpellChosen = wizard.getKnownSpells().get(NumberChosen - 1);
-        return false
-    }
 }
 
