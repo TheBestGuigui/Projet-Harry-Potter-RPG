@@ -30,9 +30,9 @@ public class Spell {
         this.accuracy = accuracy;
     }
 
-    public static Spell WindgardiumLeviosa = new Spell("Windgardium Leviosa", 0, 80);
     public static Spell Protego = new Spell("Protego", 999, 100);
     public static Spell Stupefix = new Spell("Stupefix", 20, 90);
+    public static Spell WindgardiumLeviosa = new Spell("Windgardium Leviosa", 0, 80);
     public static Spell Accio = new Spell("Accio", 0, 0);
     public static Spell Expecto_patronum = new Spell("Expecto Patronum", 0, 0);
     public static Spell Sectumsempra = new Spell("Sectumsempra", 0, 0);

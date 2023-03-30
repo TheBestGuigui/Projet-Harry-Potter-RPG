@@ -112,54 +112,8 @@ public abstract class Character {
         IsAlive = alive;
     }
 
-    private static boolean wizardAttackTroll(Wizard wizard, Enemy enemy) {
-        Scanner scanner = new Scanner(System.in);
-        boolean success = false;
-        boolean comeback = true;
-
-        while (comeback) {
-            String Stats = wizard.Stats(wizard);
-            System.out.println(Stats);
-            System.out.println("\n Vous rencontrez un " + enemy.getName() + "et il a " + enemy.getHealth_point() + " points de vie." + "\n Que faites vous ?");
-            System.out.println("1: Utiliser un sort");
-            System.out.println("2: Ouvrir votre inventaire");
-            System.out.println("3: Essayer de vous enfuir");
-
-            try {
-                int WizardChoice = scanner.nextInt();
-                scanner.nextLine();
-
-                if (WizardChoice < 1 || WizardChoice > 4) {
-                    System.out.println("You must choose a number between 1 and 3.");
-                    continue;
-                }
-
-                switch (WizardChoice) {
-                    case 1 -> {
-                        comeback = Using_Spells(wizard, enemy);
-                        if (enemy.getHealth_point() <= 0) {
-                            return true;
-                        }
-                    }
-                    case 2 -> {
-                        comeback = Inventory.openInventory(wizard, enemy);
-                    }
-
-                }
-
-
-            } catch (InputMismatchException e) {
-                    System.out.println("Vous devez obligatoirement utiliser un nombre pour choisir votre action à effectuer.");
-                scanner.next();
-            }
-        }
-        return false;
-    }
-
-
-
     private static boolean WizardAttacksEnemy(Wizard wizard, Enemy enemy) {
-        if (enemy == Enemy.troll) {
+        if (enemy.getName() == Enemy.troll.getName()) {
             return WizardAttackTroll(wizard, enemy);
         }
         return false;
@@ -173,13 +127,10 @@ public abstract class Character {
     }
 
     public static void Fight_enemy(Wizard wizard, Enemy enemy) {
-        boolean enemyAlive = false;
-        boolean wizardAlive = false;
-        while (enemyAlive && !wizardAlive) {
+        boolean enemyAlive = true;
+        boolean wizardAlive = true;
+        while (enemyAlive && wizardAlive) {
             enemyAlive = WizardAttacksEnemy(wizard, enemy);
-            if (enemyAlive || enemy.getHealth_point() <= 0) {
-                break;
-            }
             if (enemyAlive || enemy.getHealth_point() <= 0) {
                 break;
             }
@@ -193,9 +144,10 @@ public abstract class Character {
     private static boolean WizardAttackTroll(Wizard wizard, Enemy enemy) {
         Scanner scanner = new Scanner(System.in);
         boolean WinCond = true;
-        int EnemyHP = Enemy.troll.getHealth_point();
-        while (EnemyHP < 0) {
-            System.out.println("The battle against the Troll is on  !" + "\n The Troll has " + EnemyHP + "health points." + "\n What do you wish to do ?" + "\n 1: Use a spell." + "\n 2: Open your inventory." + "\n 3: Flee.");
+        int EnemyHP = enemy.getHealth_point();
+        System.out.println(EnemyHP);
+        while (EnemyHP > 0) {
+            System.out.println("The battle against the Troll is on  !" + "\nThe Troll has " + EnemyHP + " health points." + "\nWhat do you wish to do ?" + "\n1: Use a spell." + "\n2: Open your inventory." + "\n3: Flee.");
             try {
                 int WizardChoice = scanner.nextInt();
                 scanner.nextLine();
@@ -206,21 +158,7 @@ public abstract class Character {
 
                 switch (WizardChoice) {
                     case 1 -> {
-                        WinCond = Using_Spells(wizard, enemy);
-                        if (Enemy.troll.getHealth_point() <= 0) {
-                            return true;
-                        }
-                    }
-                }
-                System.out.println("You are familiar with the following spells :" + "\n 1: " + "\n 2: Windgardium Leviosa");
-                int SpellChosen = scanner.nextInt();
-                scanner.nextLine();
-                switch (SpellChosen) {
-                    case 1 -> {
-
-                    }
-                    case 2 -> {
-
+                        return Using_Spells(wizard, enemy);
                     }
                 }
             } catch(InputMismatchException e){
@@ -236,7 +174,7 @@ public abstract class Character {
         int WizardHP = wizard.getHealth_point();
         int EnemyDamage = Enemy.troll.getAttack_damage() - (wizard.getDefense() + wizard.getResistanceBonus());
         wizard.setHealth_point(WizardHP - EnemyDamage);
-        System.out.println("The Troll hits you with his club and takes " + EnemyDamage + " health points from you !");
+        System.out.println("The Troll hits you with his club and takes " + EnemyDamage + " health points away from you !");
         if (wizard.getHealth_point() <= 0) {
                 System.out.println("You were killed by the Troll during your epic battle.");
                 return true;
@@ -251,7 +189,7 @@ public abstract class Character {
                 int numSpells = wizard.getKnownSpells().size();
                 System.out.println("You are familiar with the following spells :");
                 for (int i = 0; i < numSpells; i++) {
-                    System.out.println((i + 1) + " :" + wizard.getKnownSpells().get(i).getName());
+                    System.out.println((i + 1) + ": " + wizard.getKnownSpells().get(i).getName());
                 }
                 int NumberChosen = 0;
                 try {
@@ -261,24 +199,22 @@ public abstract class Character {
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("You must use a number to choose your action.");
-                    scanner.next();
                 }
                 Spell SpellChosen = wizard.getKnownSpells().get(NumberChosen - 1);
-                if (SpellChosen == Spell.Stupefix) {
-
-                } else if (SpellChosen == Spell.Protego) {
-
-                } else if (SpellChosen == Spell.WindgardiumLeviosa) {
-
-                } else if (SpellChosen == Spell.WindgardiumLeviosa && Enemy.troll == enemy) {
+                if (SpellChosen.getName() == Spell.Stupefix.getName()) {
+                    return false;
+                } else if (SpellChosen.getName() == Spell.Protego.getName()) {
+                    return false;
+                } else if (SpellChosen.getName() == Spell.WindgardiumLeviosa.getName() && Enemy.troll.getName() == enemy.getName()) {
                     Random random = new Random();
                     int nbr_random = random.nextInt(101);
                     if (nbr_random <= SpellChosen.getAccuracy()) {
                         System.out.println("You use the Wingardium Leviosa spell on the troll's club to stun it.");
                         enemy.setHealth_point(0);
-                        return false;
+                        return true;
                     } else {
                         System.out.println("You missed your spell on " + enemy.getName() + ".");
+                        return false;
                     }
 
                 } else if (SpellChosen == Spell.Accio && Enemy.basilic == enemy) {
@@ -288,7 +224,7 @@ public abstract class Character {
 
 
 
-                return false;
+                return true;
             }
 }
 

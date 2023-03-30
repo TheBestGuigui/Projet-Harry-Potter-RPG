@@ -20,7 +20,7 @@ public class Wizard extends Character {
         }
 
     public String Stats(Wizard wizard) {
-        return "\n Your Statistics :" + "\n Name: " + wizard.getName() + "\n Health Points: " + wizard.getHealth_point() + "/" + wizard.getMax_Health_point() + "\n Defense: " + wizard.getDefense() + "\n Combat Power: " + wizard.getCombat_power() + "\n Potion Efficiency: " + wizard.getEfficiencyPotionsBonus() + "\n Money: " + wizard.getMoney() + "€";
+        return "\nYour Statistics :" + "\nName: " + wizard.getName() + "\nHealth Points: " + wizard.getHealth_point() + "/" + wizard.getMax_Health_point() + "\nDefense: " + wizard.getDefense() + "\nCombat Power: " + wizard.getCombat_power() + "\nPotion Efficiency: " + wizard.getEfficiencyPotionsBonus() + "\nMoney: " + wizard.getMoney() + "€";
     }
 
     public void is_alive(Wizard wizard) {
