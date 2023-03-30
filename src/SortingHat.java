@@ -43,5 +43,6 @@ public class SortingHat {
                 System.out.println("Vous devez obligatoirement utiliser un nombre pour choisir votre action à effectuer.");
                 scanner.next();
             }
+            return houses[0];
         }
 }

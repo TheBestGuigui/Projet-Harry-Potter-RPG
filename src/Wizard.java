@@ -9,20 +9,18 @@ public class Wizard extends Character {
     private List<Spell> knownspells;
     private List<Potion> potions;
 
-    public Wizard(String name, Pet pet, Wand wand, House house, Spell knownspells, Potion potions) {
+    public Wizard(String name, Pet pet, Wand wand, House house, ArrayList<Spell> spells, ArrayList<Potion> potions) {
             super(name, 500,500, 20 , 20 , 0 , 0, 0, 0, 200, true);
             this.name = name;
             this.pet = pet;
             this.wand = wand;
             this.house = house;
-            this.knownspells = new ArrayList<Spell>();
-            this.knownspells.add(knownspells);
-            this.potions = new ArrayList<Potion>();
-            this.potions.add(potions);
+            this.knownspells = spells;
+            this.potions = potions;
         }
 
     public String Stats(Wizard wizard) {
-        return "\n Your Statistics :" + "\n Name :" + wizard.getName() + "\n Health Points :" + wizard.getHealth_point() + "/" + wizard.getMax_Health_point() + "\n Defense :" + wizard.getDefense() + "\n Combat Power :" + wizard.getCombat_power() + "\n Potion Efficiency :" + wizard.getEfficiencyPotionsBonus() + "\n Money :" + wizard.getMoney() + "€";
+        return "\n Your Statistics :" + "\n Name: " + wizard.getName() + "\n Health Points: " + wizard.getHealth_point() + "/" + wizard.getMax_Health_point() + "\n Defense: " + wizard.getDefense() + "\n Combat Power: " + wizard.getCombat_power() + "\n Potion Efficiency: " + wizard.getEfficiencyPotionsBonus() + "\n Money: " + wizard.getMoney() + "€";
     }
 
     public void is_alive(Wizard wizard) {

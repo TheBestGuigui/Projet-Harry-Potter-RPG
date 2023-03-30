@@ -48,7 +48,7 @@ public class Enemy {
         this.defense = defense;
     }
 
-    public static Enemy troll = new Enemy(" The Troll of the dungeon", "Troll", 100, 10, 10);
+    public static Enemy troll = new Enemy("The Troll of the dungeon", "Troll", 100, 10, 10);
     public static Enemy basilic = new Enemy("The Basil of the Chamber of Secrets", "Basilic", 100, 3, 10);
     public static Enemy Dementor = new Enemy("The Dementor", "Unknown", 100, 10, 10);
     public static Enemy Voldemort = new Enemy("Voldemort", "Unknown", 100, 10, 10);

@@ -228,7 +228,7 @@ public abstract class Character {
                 scanner.nextLine();
             }
         }
-
+        return false;
     }
 
     private static boolean TrollAttackWizard(Wizard wizard, Enemy enemy) {
