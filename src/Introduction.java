@@ -47,7 +47,7 @@ public class Introduction {
         System.out.print("Finally, you will join a house. To do this, we will place the Sorting Hat on your head and it will assign you to your house.");
         SortingHat sortingHat = new SortingHat();
         House[] houses = sortingHat.houses;
-        House HouseSelected = SortingHat.Select_House(scanner);
+        House HouseSelected = SortingHat.Select_House();
 
         wizard.setName(name);
         wizard.setWand(wand);

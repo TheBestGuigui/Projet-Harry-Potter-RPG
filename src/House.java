@@ -1,18 +1,17 @@
 public enum House {
-    HUFFLEPUFF,
-    SLYTHERIN,
-    GRYFFINDOR,
-    RAVENCLAW;
+    GRYFFINDOR("GRYFFINDOR"),
+    HUFFLEPUFF("HUFFLEPUFF"),
+    RAVENCLAW("RAVENCLAW"),
+    SLYTHERIN("SLYTHERIN");
 
-    private final String House_name;
+    private String House_name;
 
-    House(String name) {
+    private House(String name) {
         this.House_name = name;
     }
 
-    @Override
-    public String toString() {
-        return this.House_name;
+    public String getHouse_name() {
+        return House_name;
     }
 
     public void set_Bonus_House(House wizard) {

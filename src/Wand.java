@@ -2,7 +2,7 @@ public class Wand {
     private Core core;
     private int size;
 
-    public Wand(String Core) {
+    public Wand(Core Core) {
         this.core = Core;
         this.size = (int)(Math.random() * 13.0) + 22;
     }

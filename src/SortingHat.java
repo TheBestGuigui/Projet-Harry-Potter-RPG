@@ -5,7 +5,7 @@ import java.util.InputMismatchException;
 public class SortingHat {
     public final House[] houses = {House.RAVENCLAW, House.SLYTHERIN, House.GRYFFINDOR, House.HUFFLEPUFF};
 
-        public House Select_House(Scanner scanner) {
+        public House Select_House() {
             Scanner scanner = new Scanner(System.in);
             System.out.println("The Sorting Hat whispers to you inwardly :" + "\n Is there a House you really want to join ?" + "\n Choose your House :" + "\n 1: HUFFLEPUFF," + "\n 2: SLYTHERIN," + "\n 3: GRYFFINDOR," + "\n 4: RAVENCLAW," + "\n 5: Let the Sorting Hat decide.");
             try {
@@ -14,7 +14,6 @@ public class SortingHat {
 
                 if (Choice_House < 1 || Choice_House > 4) {
                     System.out.println("Vous devez choisir un nombre compris entre 1 et 3.");
-                    continue;
                 }
 
                 switch (Choice_House) {
@@ -35,7 +34,8 @@ public class SortingHat {
                         return houses[3];
                     }
                     case 5 -> {
-                        int nbr_random = 0 + (int)(Math.random() * 4);
+                        Random random = new Random();
+                        int nbr_random = random.nextInt(4);
                         return houses[nbr_random];
                     }
                 }

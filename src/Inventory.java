@@ -66,19 +66,19 @@ public class Inventory {
             }
             Potion chosenPotion = wizard.getPotions().get(choice - 1);
             System.out.println("Vous avez choisi la " + chosenPotion.getName() + ".");
-            if (chosenPotion == Potion.potionHeal) {
-                if (wizard.getLifePoint() >= 80) {
-                    wizard.setLifePoint(wizard.getMaxHealth_point());
+            if (chosenPotion == Potion.HealingPotion) {
+                if (wizard.getHealth_point() >= 80) {
+                    wizard.setHealth_point(wizard.getMax_Health_point());
                 } else
-                    wizard.setHealth_point(wizard.getHealthpoint() + chosenPotion.getValue() + (chosenPotion.getValue() * wizard.getEfficiencyPotionsBonus()) / 100);
+                    wizard.setHealth_point(wizard.getHealth_point() + chosenPotion.getValue() + (chosenPotion.getValue() * wizard.getEfficiencyPotionsBonus()) / 100);
                 wizard.getPotions().remove(choice - 1);
-            } else if (chosenPotion == Potion.potionDamage) {
+            } else if (chosenPotion == Potion.DamagingPotion) {
                 wizard.setPowerBonus(wizard.getPowerBonus() + chosenPotion.getValue() + (chosenPotion.getValue() * wizard.getEfficiencyPotionsBonus()) / 100);
                 wizard.getPotions().remove(choice - 1);
-            } else if (chosenPotion == Potion.potionResistance) {
+            } else if (chosenPotion == Potion.ResistancePotion) {
                 wizard.setResistanceBonus(wizard.getResistanceBonus() + chosenPotion.getValue() + (chosenPotion.getValue() * wizard.getEfficiencyPotionsBonus()) / 100);
                 wizard.getPotions().remove(choice - 1);
-            } else if (chosenPotion == Potion.potionPrecision) {
+            } else if (chosenPotion == Potion.AccuracyPotion) {
                 wizard.setAccuracyBonus(wizard.getAccuracyBonus() + chosenPotion.getValue() + (chosenPotion.getValue() * wizard.getEfficiencyPotionsBonus()) / 100);
                 wizard.getPotions().remove(choice - 1);
             }

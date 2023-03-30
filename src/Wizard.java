@@ -6,33 +6,40 @@ public class Wizard extends Character {
     private Pet pet;
     private Wand wand;
     private House house;
-    private List<AbstractSpell> knownspells;
+    private List<Spell> knownspells;
     private List<Potion> potions;
 
-    public String Stats(String name, int hp, int max_hp, int defense, int power, int potion_efficiency, int money) {
-        return "\n Your Statistics :" + "\n Name :" + name + "\n Health Points :" + hp + "/" + max_hp + "\n Defense :" + defense + "\n Combat Power :" + power + "\n Potion Efficiency :" + potion_efficiency + "\n Money :" + money + "€";
-    }
-
-    public Wizard(String name, Pet pet, Wand wand, House house, AbstractSpell knownspells, Potion potions) {
+    public Wizard(String name, Pet pet, Wand wand, House house, Spell knownspells, Potion potions) {
             super(name, 500,500, 20 , 20 , 0 , 0, 0, 0, 200, true);
             this.name = name;
             this.pet = pet;
             this.wand = wand;
             this.house = house;
-            this.knownspells = knownspells;
-            this.potions = potions;
+            this.knownspells = new ArrayList<Spell>();
+            this.knownspells.add(knownspell);
+            this.potions = new ArrayList<Potion>();
+            this.potions.add(potion);
         }
 
-        public void is_alive () {
-            if (Wizard.getHealth_point() <= 0) {
-                Wizard.setIsAlive(false);
-            }
-        }
+    public Wizard(String name, Pet pet, Wand wand, House house) {
+        super();
+        this.name = name;
+        this.pet = pet;
+        this.wand = wand;
+        this.house = house;
+        this.knownspells = new ArrayList<Spell>();
+        this.potions = new ArrayList<Potion>();
+    }
 
-        public Wizard(String name, Pet pet, Wand wand, House house) {
-            this(name, pet, wand, house, new ArrayList<>(), new ArrayList<>());
-        }
+    public String Stats(Wizard wizard) {
+        return "\n Your Statistics :" + "\n Name :" + wizard.getName() + "\n Health Points :" + wizard.getHealth_point() + "/" + wizard.getMax_Health_point() + "\n Defense :" + wizard.getDefense() + "\n Combat Power :" + wizard.getCombat_power() + "\n Potion Efficiency :" + wizard.getEfficiencyPotionsBonus() + "\n Money :" + wizard.getMoney() + "€";
+    }
 
+    public void is_alive(Wizard wizard) {
+        if (wizard.getHealth_point() <= 0) {
+            wizard.setIsAlive(false);
+        }
+    }
 
     @Override
     public String getName() {
@@ -78,9 +85,6 @@ public class Wizard extends Character {
     }
     public void setPotions(List<Potion> potions) {
         this.potions = potions;
-    }
-    public void addPotion(Potion potion) {
-        this.potions.add(potion);
     }
 }
 
