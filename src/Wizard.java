@@ -16,20 +16,10 @@ public class Wizard extends Character {
             this.wand = wand;
             this.house = house;
             this.knownspells = new ArrayList<Spell>();
-            this.knownspells.add(knownspell);
+            this.knownspells.add(knownspells);
             this.potions = new ArrayList<Potion>();
-            this.potions.add(potion);
+            this.potions.add(potions);
         }
-
-    public Wizard(String name, Pet pet, Wand wand, House house) {
-        super();
-        this.name = name;
-        this.pet = pet;
-        this.wand = wand;
-        this.house = house;
-        this.knownspells = new ArrayList<Spell>();
-        this.potions = new ArrayList<Potion>();
-    }
 
     public String Stats(Wizard wizard) {
         return "\n Your Statistics :" + "\n Name :" + wizard.getName() + "\n Health Points :" + wizard.getHealth_point() + "/" + wizard.getMax_Health_point() + "\n Defense :" + wizard.getDefense() + "\n Combat Power :" + wizard.getCombat_power() + "\n Potion Efficiency :" + wizard.getEfficiencyPotionsBonus() + "\n Money :" + wizard.getMoney() + "€";
@@ -85,6 +75,9 @@ public class Wizard extends Character {
     }
     public void setPotions(List<Potion> potions) {
         this.potions = potions;
+    }
+    public void addPotions(Potion potions) {
+        this.potions.add(potions);
     }
 }
 

@@ -118,7 +118,7 @@ public abstract class Character {
         boolean comeback = true;
 
         while (comeback) {
-            String Stats = wizard.Stats(wizard.getName(), wizard.getHealth_point(), wizard.getResistanceBonus(), wizard.getPowerBonus(), wizard.getAccuracyBonus(), wizard.getEfficiencyPotionsBonus(), wizard.getMoney());
+            String Stats = wizard.Stats(wizard);
             System.out.println(Stats);
             System.out.println("\n Vous rencontrez un " + enemy.getName() + "et il a " + enemy.getHealth_point() + " points de vie." + "\n Que faites vous ?");
             System.out.println("1: Utiliser un sort");
@@ -268,9 +268,9 @@ public abstract class Character {
 
                 } else if (SpellChosen == Spell.Protego) {
 
-                } else if (SpellChosen == Spell.windgardiumLeviosa) {
+                } else if (SpellChosen == Spell.WindgardiumLeviosa) {
 
-                } else if (SpellChosen == Spell.windgardiumLeviosa && Enemy.troll == enemy) {
+                } else if (SpellChosen == Spell.WindgardiumLeviosa && Enemy.troll == enemy) {
                     Random random = new Random();
                     int nbr_random = random.nextInt(101);
                     if (nbr_random <= SpellChosen.getAccuracy()) {

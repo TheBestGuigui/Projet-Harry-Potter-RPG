@@ -25,7 +25,8 @@ public class Introduction {
             System.out.println("You must use a number to choose your action.");
             scanner.next();
         }
-        Core CoreChosen = Core.values(Nbr_Choice_Core-1);
+        Core[] cores = Core.values();
+        Core CoreChosen = cores[Nbr_Choice_Core - 1];
 
         Wand wand = new Wand(CoreChosen);
         Core core = wand.getCore();
@@ -42,12 +43,12 @@ public class Introduction {
             System.out.println("You must use a number to choose your action.");
             scanner.next();
         }
-        Pet PetChosen = Pet.values(Nbr_Choice_Pet - 1);
+        Pet[] pets = Pet.values();
+        Pet PetChosen = pets[Nbr_Choice_Pet - 1];
 
         System.out.print("Finally, you will join a house. To do this, we will place the Sorting Hat on your head and it will assign you to your house.");
         SortingHat sortingHat = new SortingHat();
-        House[] houses = sortingHat.houses;
-        House HouseSelected = SortingHat.Select_House();
+        House HouseSelected = sortingHat.Select_House();
 
         wizard.setName(name);
         wizard.setWand(wand);

@@ -14,7 +14,7 @@ public enum House {
         return House_name;
     }
 
-    public void set_Bonus_House(House wizard) {
+    public void set_Bonus_House(Wizard wizard) {
         House house = wizard.getHouse();
         switch (house) {
             case HUFFLEPUFF:

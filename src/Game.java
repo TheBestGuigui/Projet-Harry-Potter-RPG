@@ -2,7 +2,7 @@ public class Game {
     private Wizard wizard;
 
     public static void main(String[] args) {
-        Wizard wizard = new Wizard("Guillaume", new Pet(10), new Wand(1, 20), House.SLYTHERIN, new Spell("Wingardium Leviosa"), new Potion("Healing Potion"));
+        Wizard wizard = new Wizard("Guillaume", Pet.values()[10], new Wand(Core.values()[1], 20), House.SLYTHERIN, wizard.getKnownSpells().get(1), wizard.getPotions().get(0));
         String stats = wizard.Stats(wizard);
         System.out.println(stats);
 
@@ -12,5 +12,4 @@ public class Game {
             return;
         }
     }
-
 }
