@@ -2,87 +2,75 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Inventory {
     public static boolean openInventory(Wizard wizard, Enemy enemy) {
-        boolean comeback2 = true;
         Scanner scanner = new Scanner(System.in);
-        while (comeback2) {
-            System.out.println("\nVous ouvrez votre inventaire, que souhaitez-vous utiliser ?");
-            System.out.println("1: Utiliser une potion");
-            System.out.println("2: Utiliser un item");
-            System.out.println("3: Quitter votre inventaire");
-
+        int Condition_Vérif = 0;
+        System.out.println("\nYou open your inventory, which potion do you want to use ?" + "\n1: Healing Potion" + "\n2: Damaging Potion" + "\n3: Accuracy Potion" + "\n4: Resistance Potion" + "\n5: Close Inventory");
+        while (Condition_Vérif == 0) {
             try {
-                int UserChoice = scanner.nextInt();
+                int InventoryChoice = scanner.nextInt();
                 scanner.nextLine();
 
-                if (UserChoice < 1 || UserChoice > 3) {
-                    System.out.println("Vous devez choisir un nombre compris entre 1 et 3.");
+                if (InventoryChoice < 1 || InventoryChoice > 5) {
+                    System.out.println("You must choose a number between 1 and 5.");
                 }
 
-                switch (UserChoice) {
+                switch (InventoryChoice) {
                     case 1 -> {
-                        comeback2 = UsePotions(wizard);
+                        if (Potion.HealingPotion.getQuantity() == 0) {
+                            System.out.println("You are out of healing potions." + "\nChoose another option :" + "\n1: Healing Potion" + "\n2: Damaging Potion" + "\n3: Accuracy Potion" + "\n4: Resistance Potion" + "\n5: Close Inventory");
+                        } else {
+                            wizard.setHealth_point(wizard.getHealth_point() + Potion.HealingPotion.getValue());
+                            Potion.HealingPotion.setQuantity(Potion.HealingPotion.getQuantity() - 1);
+                            String stats = wizard.Stats(wizard);
+                            System.out.println(stats);
+                            int Condtion_Vérif = 1;
+                            return true;
+                        }
                     }
                     case 2 -> {
-                        ///comeback2 = findItems(wizard, enemy);
+                        if (Potion.DamagingPotion.getQuantity() == 0) {
+                            System.out.println("You are out of damaging potions." + "\nChoose another option :" + "\n1: Healing Potion" + "\n2: Damaging Potion" + "\n3: Accuracy Potion" + "\n4: Resistance Potion" + "\n5: Close Inventory");
+                        } else {
+                            enemy.setHealth_point(enemy.getHealth_point() - Potion.DamagingPotion.getValue());
+                            Potion.DamagingPotion.setQuantity(Potion.DamagingPotion.getQuantity()- 1);
+                            System.out.println("You throw a damaging potion in the face of " + enemy.getName() + " and you take " + Potion.DamagingPotion.getValue() + " health points away from this enemy.");
+                            System.out.println(enemy.getName() + " now has " + enemy.getHealth_point() + " health points remaining.");
+                            int Condtion_Vérif = 1;
+                            return true;
+                        }
                     }
                     case 3 -> {
+                        if (Potion.AccuracyPotion.getQuantity() == 0) {
+                            System.out.println("You are out of accuracy potions." + "\nChoose another option :" + "\n1: Healing Potion" + "\n2: Damaging Potion" + "\n3: Accuracy Potion" + "\n4: Resistance Potion" + "\n5: Close Inventory");
+                        } else {
+                            wizard.setAccuracy(wizard.getAccuracy() + Potion.AccuracyPotion.getValue());
+                            Potion.AccuracyPotion.setQuantity(Potion.AccuracyPotion.getQuantity() - 1);
+                            String stats = wizard.Stats(wizard);
+                            System.out.println(stats);
+                            int Condtion_Vérif = 1;
+                            return true;
+                        }
+                    }
+                    case 4 -> {
+                        if (Potion.ResistancePotion.getQuantity() == 0) {
+                            System.out.println("You are out of resistance potions." + "\nChoose another option :" + "\n1: Healing Potion" + "\n2: Damaging Potion" + "\n3: Accuracy Potion" + "\n4: Resistance Potion" + "\n5: Close Inventory");
+                        }
+                        wizard.setDefense(wizard.getDefense() + Potion.ResistancePotion.getValue());
+                        Potion.ResistancePotion.setQuantity(Potion.ResistancePotion.getQuantity() - 1);
+                        String stats = wizard.Stats(wizard);
+                        System.out.println(stats);
+                        int Condtion_Vérif = 1;
                         return true;
+                    }
+                    case 5 -> {
+                        System.out.println("You close your inventory.");
+                        return Character.WizardAttacksEnemy(wizard, enemy);
                     }
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Vous devez obligatoirement utiliser un nombre pour choisir votre action à effectuer.");
-                scanner.nextLine();
+                System.out.println("You must use a number to choose your action.");
             }
         }
-        return false;
-        }
-
-    private static boolean UsePotions(Wizard wizard) {
-        int numPotions = wizard.getPotions().size();
-        if (numPotions == 0) {
-            System.out.println("Vous n'avez aucune potion dans votre inventaire." + "\n Vous ne pouvez donc pas en utiliser.");
-            return true;
-        } else {
-            System.out.println("\n Choisissez une potion parmi les suivantes :");
-            for (int i = 0; i < numPotions; i++) {
-                System.out.println((i + 1) + " : " + wizard.getPotions().get(i).getName());
-            }
-            System.out.println((numPotions + 1) + " : Retourner dans le sac");
-            int choice = -1;
-            do {
-                Scanner scanner = new Scanner(System.in);
-                try {
-                    choice = scanner.nextInt();
-                    if (choice < 1 || choice > numPotions + 1) {
-                        System.out.println("Vous devez choisir un nombre compris entre 1 et 3.");
-                    }
-                } catch (InputMismatchException e) {
-                    System.out.println("Vous devez obligatoirement utiliser un nombre pour choisir votre action à effectuer.");
-                    scanner.next();
-                }
-            } while (choice < 1 || choice > numPotions + 1);
-            if (choice == numPotions + 1) {
-                return true;
-            }
-            Potion chosenPotion = wizard.getPotions().get(choice - 1);
-            System.out.println("Vous avez choisi la " + chosenPotion.getName() + ".");
-            if (chosenPotion == Potion.HealingPotion) {
-                if (wizard.getHealth_point() >= 80) {
-                    wizard.setHealth_point(wizard.getMax_Health_point());
-                } else
-                    wizard.setHealth_point(wizard.getHealth_point() + chosenPotion.getValue() + (chosenPotion.getValue() * wizard.getEfficiencyPotionsBonus()) / 100);
-                wizard.getPotions().remove(choice - 1);
-            } else if (chosenPotion == Potion.DamagingPotion) {
-                wizard.setPowerBonus(wizard.getPowerBonus() + chosenPotion.getValue() + (chosenPotion.getValue() * wizard.getEfficiencyPotionsBonus()) / 100);
-                wizard.getPotions().remove(choice - 1);
-            } else if (chosenPotion == Potion.ResistancePotion) {
-                wizard.setResistanceBonus(wizard.getResistanceBonus() + chosenPotion.getValue() + (chosenPotion.getValue() * wizard.getEfficiencyPotionsBonus()) / 100);
-                wizard.getPotions().remove(choice - 1);
-            } else if (chosenPotion == Potion.AccuracyPotion) {
-                wizard.setAccuracyBonus(wizard.getAccuracyBonus() + chosenPotion.getValue() + (chosenPotion.getValue() * wizard.getEfficiencyPotionsBonus()) / 100);
-                wizard.getPotions().remove(choice - 1);
-            }
-        }
-        return false;
+        return true;
     }
 }

@@ -10,7 +10,7 @@ public class Wizard extends Character {
     private List<Potion> potions;
 
     public Wizard(String name, Pet pet, Wand wand, House house, ArrayList<Spell> spells, ArrayList<Potion> potions) {
-            super(name, 500,500, 20 , 20 , 0 , 0, 0, 0, 200, true);
+            super(name, 500,500, 20 , 20 , 40,0 , 0, 0, 0, 200, true);
             this.name = name;
             this.pet = pet;
             this.wand = wand;

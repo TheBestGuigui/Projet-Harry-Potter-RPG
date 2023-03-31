@@ -9,6 +9,7 @@ public abstract class Character {
     private int max_health_point;
     private int combat_power;
     private int defense;
+    private int accuracy;
 
     private int accuracyBonus;
 
@@ -23,12 +24,13 @@ public abstract class Character {
     private boolean IsAlive;
 
 
-    public Character(String name, int hp, int max_hp, int combat_power, int defense, int accuracyBonus, int powerBonus, int efficiencyPotionsBonus, int resistanceBonus, int money, boolean is_alive) {
+    public Character(String name, int hp, int max_hp, int combat_power, int defense, int accuracy, int accuracyBonus, int powerBonus, int efficiencyPotionsBonus, int resistanceBonus, int money, boolean is_alive) {
         this.name = name;
         this.health_point = hp;
         this.max_health_point = max_hp;
         this.combat_power = combat_power;
         this.defense = defense;
+        this.accuracy = accuracy;
         this.accuracyBonus = accuracyBonus;
         this.powerBonus = powerBonus;
         this.efficiencyPotionsBonus = efficiencyPotionsBonus;
@@ -67,6 +69,13 @@ public abstract class Character {
     }
     public void setDefense(int defense) {
         this.defense = defense;
+    }
+
+    public int getAccuracy() {
+        return accuracy;
+    }
+    public void setAccuracy(int accuracy) {
+            this.accuracy = accuracy;
     }
 
     public int getEfficiencyPotionsBonus() {
@@ -112,7 +121,7 @@ public abstract class Character {
         IsAlive = alive;
     }
 
-    private static boolean WizardAttacksEnemy(Wizard wizard, Enemy enemy) {
+    public static boolean WizardAttacksEnemy(Wizard wizard, Enemy enemy) {
         if (enemy.getName() == Enemy.troll.getName()) {
             return WizardAttackTroll(wizard, enemy);
         }
@@ -131,23 +140,20 @@ public abstract class Character {
         boolean wizardAlive = true;
         while (enemyAlive && wizardAlive) {
             enemyAlive = WizardAttacksEnemy(wizard, enemy);
-            if (enemyAlive || enemy.getHealth_point() <= 0) {
+            if (enemy.getHealth_point() <= 0) {
+                System.out.println("You finally succeeded in defeating " + enemy.getName() + ", congratulations !");
                 break;
             }
             wizardAlive = EnemyAttacksWizard(wizard, enemy);
-        }
-        if (enemyAlive || enemy.getHealth_point() <= 0) {
-            System.out.println("You finally succeeded in defeating " + enemy.getName() + ", congratulations !");
         }
     }
 
     private static boolean WizardAttackTroll(Wizard wizard, Enemy enemy) {
         Scanner scanner = new Scanner(System.in);
-        boolean WinCond = true;
         int EnemyHP = enemy.getHealth_point();
-        System.out.println(EnemyHP);
+        System.out.println("The battle against the Troll is on !");
         while (EnemyHP > 0) {
-            System.out.println("The battle against the Troll is on  !" + "\nThe Troll has " + EnemyHP + " health points." + "\nWhat do you wish to do ?" + "\n1: Use a spell." + "\n2: Open your inventory." + "\n3: Flee.");
+            System.out.println("The Troll has " + EnemyHP + " health points." + "\nWhat do you wish to do ?" + "\n1: Use a spell." + "\n2: Open your inventory." + "\n3: Flee.");
             try {
                 int WizardChoice = scanner.nextInt();
                 scanner.nextLine();
@@ -160,10 +166,15 @@ public abstract class Character {
                     case 1 -> {
                         return Using_Spells(wizard, enemy);
                     }
+                    case 2 -> {
+                        return Inventory.openInventory(wizard, enemy);
+                    }
+                    case 3 -> {
+                        System.out.println("You can't flee a fight against a boss !");
+                    }
                 }
             } catch(InputMismatchException e){
                 System.out.println("You must use a number to choose your action.");
-                scanner.nextLine();
             }
         }
         return false;
@@ -177,11 +188,11 @@ public abstract class Character {
         System.out.println("The Troll hits you with his club and takes " + EnemyDamage + " health points away from you !");
         if (wizard.getHealth_point() <= 0) {
                 System.out.println("You were killed by the Troll during your epic battle.");
-                return true;
+                return false;
         } else {
-            System.out.println("You handle the attack but you took some damage !");
+            System.out.println("You handle the attack but you took some damage !" + "\nYou now have " + wizard.getHealth_point() + " health points remaining.");
         }
-        return false;
+        return true;
     }
 
     private static boolean Using_Spells(Wizard wizard, Enemy enemy){
@@ -208,13 +219,14 @@ public abstract class Character {
                 } else if (SpellChosen.getName() == Spell.WindgardiumLeviosa.getName() && Enemy.troll.getName() == enemy.getName()) {
                     Random random = new Random();
                     int nbr_random = random.nextInt(101);
-                    if (nbr_random <= SpellChosen.getAccuracy()) {
+                    int Accuracy = wizard.getAccuracy() + SpellChosen.getAccuracy();
+                    if (nbr_random <= Accuracy) {
                         System.out.println("You use the Wingardium Leviosa spell on the troll's club to stun it.");
                         enemy.setHealth_point(0);
-                        return true;
+                        return false;
                     } else {
                         System.out.println("You missed your spell on " + enemy.getName() + ".");
-                        return false;
+                        return true;
                     }
 
                 } else if (SpellChosen == Spell.Accio && Enemy.basilic == enemy) {

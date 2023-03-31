@@ -30,12 +30,12 @@ public class Spell {
         this.accuracy = accuracy;
     }
 
-    public static Spell Protego = new Spell("Protego", 999, 100);
-    public static Spell Stupefix = new Spell("Stupefix", 20, 90);
-    public static Spell WindgardiumLeviosa = new Spell("Windgardium Leviosa", 0, 80);
-    public static Spell Accio = new Spell("Accio", 0, 0);
+    public static Spell Protego = new Spell("Protego", 999, 50);
+    public static Spell Stupefix = new Spell("Stupefix", 20, 45);
+    public static Spell WindgardiumLeviosa = new Spell("Windgardium Leviosa", 0, 40);
+    public static Spell Accio = new Spell("Accio", 0, 40);
     public static Spell Expecto_patronum = new Spell("Expecto Patronum", 0, 0);
     public static Spell Sectumsempra = new Spell("Sectumsempra", 0, 0);
     public static Spell Expelliarmus = new Spell("Expelliarmus", 0, 0);
-    public static Spell Avada_Kedavra = new Spell("Avada Kedavra", 999, 60);
+    public static Spell Avada_Kedavra = new Spell("Avada Kedavra", 999, 30);
 }
