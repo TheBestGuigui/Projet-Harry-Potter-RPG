@@ -1,7 +1,9 @@
 public class Main {
     public static void main(String[] args) {
-        while (true) {
+        boolean Jeu = true;
+        while (Jeu) {
             new Game().StartGame();
+            Jeu = false;
         }
     }
 }
