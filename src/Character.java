@@ -473,6 +473,8 @@ public abstract class Character {
                         case 4 -> {
                             System.out.println("As a member of the Gryffindor House, you use the Gryffindor sword to decapitate the basilisk.");
                             enemy.setHealth_point(0);
+                            System.out.println("You have also learned a new spell: 'Expecto Patronum' which allows you to summon your patronus to protect you");
+                            wizard.addSpell(Spell.Expecto_patronum);
                             return true;
                         }
                     }
