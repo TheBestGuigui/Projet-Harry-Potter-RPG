@@ -450,28 +450,59 @@ public abstract class Character {
         int EnemyHP = enemy.getHealth_point();
         System.out.println("The battle against the Basilisk is on !");
         while (EnemyHP > 0) {
-            System.out.println("The Basilisk has " + EnemyHP + " health points." + "\nWhat do you wish to do ?" + "\n1: Use a spell." + "\n2: Open your inventory." + "\n3: Flee.");
-            try {
-                int WizardChoice = scanner.nextInt();
-                scanner.nextLine();
+            if (wizard.getHouse().getHouse_name() == House.GRYFFINDOR.getHouse_name()) {
+                System.out.println("The Death Eaters have " + EnemyHP + " health points." + "\nWhat do you wish to do ?" + "\n1: Use a spell." + "\n2: Open your inventory." + "\n3: Flee." + "\n4: Use the Gryffindor Sword");
+                try {
+                    int WizardChoice = scanner.nextInt();
+                    scanner.nextLine();
 
-                if (WizardChoice < 1 || WizardChoice > 3) {
-                    System.out.println("You must choose a number between 1 and 3.");
-                }
+                    if (WizardChoice < 1 || WizardChoice > 4) {
+                        System.out.println("You must choose a number between 1 and 4.");
+                    }
 
-                switch (WizardChoice) {
-                    case 1 -> {
-                        return Using_Spells(wizard, enemy);
+                    switch (WizardChoice) {
+                        case 1 -> {
+                            return Using_Spells(wizard, enemy);
+                        }
+                        case 2 -> {
+                            return Inventory.openInventory(wizard, enemy, Timer);
+                        }
+                        case 3 -> {
+                            System.out.println("You can't flee a fight against a boss !");
+                        }
+                        case 4 -> {
+                            System.out.println("As a member of the Gryffindor House, you use the Gryffindor sword to decapitate the basilisk.");
+                            enemy.setHealth_point(0);
+                            return true;
+                        }
                     }
-                    case 2 -> {
-                        return Inventory.openInventory(wizard, enemy, Timer);
-                    }
-                    case 3 -> {
-                        System.out.println("You can't flee a fight against a boss !");
-                    }
+                } catch(InputMismatchException e){
+                    System.out.println("You must use a number to choose your action.");
                 }
-            } catch(InputMismatchException e){
-                System.out.println("You must use a number to choose your action.");
+            } else {
+                System.out.println("The Basilisk has " + EnemyHP + " health points." + "\nWhat do you wish to do ?" + "\n1: Use a spell." + "\n2: Open your inventory." + "\n3: Flee.");
+                try {
+                    int WizardChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (WizardChoice < 1 || WizardChoice > 3) {
+                        System.out.println("You must choose a number between 1 and 3.");
+                    }
+
+                    switch (WizardChoice) {
+                        case 1 -> {
+                            return Using_Spells(wizard, enemy);
+                        }
+                        case 2 -> {
+                            return Inventory.openInventory(wizard, enemy, Timer);
+                        }
+                        case 3 -> {
+                            System.out.println("You can't flee a fight against a boss !");
+                        }
+                    }
+                } catch(InputMismatchException e){
+                    System.out.println("You must use a number to choose your action.");
+                }
             }
         }
         return false;
