@@ -34,8 +34,8 @@ public class Spell {
     public static Spell Stupefix = new Spell("Stupefix", 20, 45);
     public static Spell WindgardiumLeviosa = new Spell("Windgardium Leviosa", 0, 40);
     public static Spell Accio = new Spell("Accio", 0, 40);
-    public static Spell Expecto_patronum = new Spell("Expecto Patronum", 0, 0);
-    public static Spell Sectumsempra = new Spell("Sectumsempra", 0, 0);
-    public static Spell Expelliarmus = new Spell("Expelliarmus", 0, 0);
+    public static Spell Expecto_patronum = new Spell("Expecto Patronum", 0, 40);
+    public static Spell Sectumsempra = new Spell("Sectumsempra", 0, 40);
+    public static Spell Expelliarmus = new Spell("Expelliarmus", 0, 45);
     public static Spell Avada_Kedavra = new Spell("Avada Kedavra", 999, 30);
 }

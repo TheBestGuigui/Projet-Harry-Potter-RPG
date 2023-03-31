@@ -1,7 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Inventory {
-    public static boolean openInventory(Wizard wizard, Enemy enemy) {
+    public static boolean openInventory(Wizard wizard, Enemy enemy, int Timer) {
         Scanner scanner = new Scanner(System.in);
         int Condition_Vérif = 0;
         System.out.println("\nYou open your inventory, which potion do you want to use ?" + "\n1: Healing Potion" + "\n2: Damaging Potion" + "\n3: Accuracy Potion" + "\n4: Resistance Potion" + "\n5: Close Inventory");
@@ -19,8 +19,13 @@ public class Inventory {
                         if (Potion.HealingPotion.getQuantity() == 0) {
                             System.out.println("You are out of healing potions." + "\nChoose another option :" + "\n1: Healing Potion" + "\n2: Damaging Potion" + "\n3: Accuracy Potion" + "\n4: Resistance Potion" + "\n5: Close Inventory");
                         } else {
-                            wizard.setHealth_point(wizard.getHealth_point() + Potion.HealingPotion.getValue());
-                            Potion.HealingPotion.setQuantity(Potion.HealingPotion.getQuantity() - 1);
+                            if (wizard.getHealth_point() + Potion.HealingPotion.getValue() > wizard.getMax_Health_point()) {
+                                wizard.setHealth_point(wizard.getMax_Health_point());
+                                Potion.HealingPotion.setQuantity(Potion.HealingPotion.getQuantity() - 1);
+                            } else {
+                                wizard.setHealth_point(wizard.getHealth_point() + Potion.HealingPotion.getValue());
+                                Potion.HealingPotion.setQuantity(Potion.HealingPotion.getQuantity() - 1);
+                            }
                             String stats = wizard.Stats(wizard);
                             System.out.println(stats);
                             int Condtion_Vérif = 1;
@@ -64,7 +69,7 @@ public class Inventory {
                     }
                     case 5 -> {
                         System.out.println("You close your inventory.");
-                        return Character.WizardAttacksEnemy(wizard, enemy);
+                        return Character.WizardAttacksEnemy(wizard, enemy, Timer);
                     }
                 }
             } catch (InputMismatchException e) {
