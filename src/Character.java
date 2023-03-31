@@ -3,7 +3,6 @@ import java.util.InputMismatchException;
 import java.util.Random;
 
 public abstract class Character {
-
     private final String name;
     private int health_point;
     private int max_health_point;
@@ -202,40 +201,59 @@ public abstract class Character {
         boolean enemy2Alive = true;
         boolean wizard1Alive = true;
         boolean wizard2Alive = true;
-        wizard.setCombat_power(20);
-        wizard.setDefense(20);
-        wizard.setAccuracy(40);
         int Timer = 4;
-        while ((enemy1Alive || enemy2Alive) && wizard2Alive) {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("There are two enemies in front of you but you can only target one, which one do you choose to target ?" + "\n1: " +enemy1.getName() + "\n2: " +enemy2.getName());
-            int target = 0;
-            try {
-                target = scanner.nextInt();
-                if (target < 1 || target > 2) {
-                    System.out.println("You must choose a number between 1 and 2.");
-                } else if (target == 1 && enemy1.getHealth_point() > 0) {
-                    enemy1Alive = WizardAttacksEnemy(wizard, enemy1, Timer);
-                } else if (target == 1 && enemy1.getHealth_point() <= 0) {
-                    System.out.println(enemy1.getName() + " has already been defeated !" + "\nYou should target a different enemy.");
-                } else if (target == 2 && enemy2.getHealth_point() > 0) {
-                    enemy2Alive = WizardAttacksEnemy(wizard, enemy2, Timer);
-                } else if (target == 2 && enemy2.getHealth_point() <= 0) {
-                    System.out.println(enemy2.getName() + " has already been defeated !" + "\nYou should target a different enemy.");
+        while ((enemy1Alive || enemy2Alive) && wizard1Alive && wizard2Alive) {
+            wizard.setCombat_power(20 + wizard.getCombat_power());
+            wizard.setDefense(20 + wizard.getResistanceBonus());
+            wizard.setAccuracy(40 + wizard.getAccuracyBonus());
+            Spell.Stupefix.setPower(20);
+            Spell.Avada_Kedavra.setPower(999);
+            if (enemy1.getHealth_point() > 0 && enemy2.getHealth_point() > 0) {
+                System.out.println("There are two enemies in front of you but you can only target one, which one do you choose to target ?" + "\n1: " +enemy1.getName() + "\n2: " +enemy2.getName());
+                Scanner scanner = new Scanner(System.in);
+                int target = 0;
+                try {
+                    target = scanner.nextInt();
+                    if (target < 1 || target > 2) {
+                        System.out.println("You must choose a number between 1 and 2.");
+                    } else if (target == 1) {
+                        enemy1Alive = WizardAttacksEnemy(wizard, enemy1, Timer);
+                    } else if (target == 2) {
+                        enemy2Alive = WizardAttacksEnemy(wizard, enemy2, Timer);
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("You must use a number to choose your action.");
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("You must use a number to choose your action.");
+            } else if (enemy1.getHealth_point() > 0 && enemy2.getHealth_point() <= 0) {
+                System.out.println(enemy1.getName() + " is standing alone against you.");
+                enemy1Alive = WizardAttacksEnemy(wizard, enemy1, Timer);
+            } else if (enemy1.getHealth_point() <= 0 && enemy2.getHealth_point() > 0) {
+                System.out.println(enemy2.getName() + " is standing alone against you.");
+                enemy2Alive = WizardAttacksEnemy(wizard, enemy2, Timer);
+            } else if (enemy1.getHealth_point() <= 0 && enemy2.getHealth_point() <= 0) {
+                System.out.println("You finally succeeded in defeating " + enemy1.getName() + " and " + enemy2.getName() + ", congratulations !");
+                break;
             }
-            if (enemy1.getHealth_point() <= 0 && enemy1.getHealth_point() > 0) {
+            enemy1.setDefense(30);
+            enemy2.setDefense(10);
+            if (enemy1.getHealth_point() > 0 && enemy2.getHealth_point() > 0) {
+                System.out.println("Both " + enemy1.getName() + " and " + enemy2.getName() + " are still alive !");
+                wizard1Alive = EnemyAttacksWizard(wizard, enemy1);
+                wizard2Alive = EnemyAttacksWizard(wizard, enemy2);
+            } else if (enemy1.getHealth_point() <= 0 && enemy1.getHealth_point() > 0) {
                 System.out.println("You finally succeeded in defeating " + enemy1.getName() + ", congratulations !" + "\n But there is still " + enemy2.getName() + " to overcome !");
+                wizard2Alive = EnemyAttacksWizard(wizard, enemy2);
             } else if (enemy1.getHealth_point() > 0 && enemy1.getHealth_point() <= 0) {
                 System.out.println("You finally succeeded in defeating " + enemy2.getName() + ", congratulations !" + "\n But there is still " + enemy1.getName() + " to overcome !");
+                wizard1Alive = EnemyAttacksWizard(wizard, enemy1);
             } else if (enemy1.getHealth_point() <= 0 && enemy1.getHealth_point() <= 0) {
                 System.out.println("You finally succeeded in defeating " + enemy1.getName() + " and " + enemy2.getName() + ", congratulations !");
                 break;
             }
-            wizard1Alive = EnemyAttacksWizard(wizard, enemy1);
-            wizard2Alive = EnemyAttacksWizard(wizard, enemy2);
+            if (wizard.getHealth_point() <= 0) {
+                System.out.println("You got killed by " + enemy1.getName() + " and " + enemy2.getName() + "\nGame Over !");
+                break;
+            }
         }
     }
 
@@ -352,12 +370,37 @@ public abstract class Character {
             int nbr_random = random.nextInt(101);
             int Accuracy = wizard.getAccuracy() + wizard.getAccuracyBonus() + SpellChosen.getAccuracy();
             if (nbr_random <= Accuracy) {
-                System.out.println("You used the Sppectumsempra spell on the Death Eaters and cut your opponent, causing him to flee.");
+                System.out.println("You used the Sectumsempra spell on the Death Eaters and cut your opponent, causing him to flee.");
                 enemy.setHealth_point(0);
                 System.out.println("You have also learned two new spell:" + "\n1) 'Expelliarmus' which allows you to disarm your enemy." + "\n2) 'Avada Kedavra' which allows you to instantly kill you enemy.");
                 wizard.addSpell(Spell.Expelliarmus);
                 wizard.addSpell(Spell.Avada_Kedavra);
                 return false;
+            } else {
+                System.out.println("You missed your spell on " + enemy.getName() + ".");
+                return true;
+            }
+        } else if (SpellChosen.getName() == Spell.Expelliarmus.getName()) {
+            Random random = new Random();
+            int nbr_random = random.nextInt(101);
+            int Accuracy = wizard.getAccuracy() + wizard.getAccuracyBonus() + SpellChosen.getAccuracy();
+            if (nbr_random <= Accuracy) {
+                System.out.println("You used the Expelliarmus spell on " + enemy.getName() + " and disarmed him/her.");
+                Spell.Stupefix.setPower(0);
+                Spell.Avada_Kedavra.setPower(0);
+                return true;
+            } else {
+                System.out.println("You missed your spell on " + enemy.getName() + ".");
+                return true;
+            }
+        } else if (SpellChosen.getName() == Spell.Avada_Kedavra.getName()) {
+            Random random = new Random();
+            int nbr_random = random.nextInt(101);
+            int Accuracy = wizard.getAccuracy() + wizard.getAccuracyBonus() + SpellChosen.getAccuracy();
+            if (nbr_random <= Accuracy) {
+                System.out.println("You used the Avada Kedavra spell on " + enemy.getName() + " and reduced him/her to ashes.");
+                enemy.setHealth_point(0);
+                return true;
             } else {
                 System.out.println("You missed your spell on " + enemy.getName() + ".");
                 return true;
@@ -658,38 +701,13 @@ public abstract class Character {
     private static boolean WizardAttackVoldemort_Final_Appearance(Wizard wizard, Enemy enemy, int Timer) {
         Scanner scanner = new Scanner(System.in);
         int EnemyHP = enemy.getHealth_point();
-        System.out.println("The battle against the Death Eaters is on !");
+        System.out.println("The final battle against Voldemort is on !");
+        if (Enemy.Bellatrix_Lestrange.getHealth_point() > 0) {
+            System.out.println("As long as Bellatrix is still alive, she will protect Voldemort.");
+            return WizardAttackBellatrixLestrange(wizard, Enemy.Bellatrix_Lestrange, Timer);
+        }
+        System.out.println("Voldemort has " + EnemyHP + " health points." + "\nWhat do you wish to do ?" + "\n1: Use a spell." + "\n2: Open your inventory." + "\n3: Flee.");
         while (EnemyHP > 0) {
-            if (wizard.getHouse().getHouse_name() == House.SLYTHERIN.getHouse_name()) {
-                System.out.println("The Death Eaters have " + EnemyHP + " health points." + "\nWhat do you wish to do ?" + "\n1: Use a spell." + "\n2: Open your inventory." + "\n3: Flee." + "\n4: Joining forces with the Death Eaters.");
-                try {
-                    int WizardChoice = scanner.nextInt();
-                    scanner.nextLine();
-
-                    if (WizardChoice < 1 || WizardChoice > 4) {
-                        System.out.println("You must choose a number between 1 and 4.");
-                    }
-
-                    switch (WizardChoice) {
-                        case 1 -> {
-                            return Using_Spells(wizard, enemy);
-                        }
-                        case 2 -> {
-                            return Inventory.openInventory(wizard, enemy, Timer);
-                        }
-                        case 3 -> {
-                            System.out.println("You can't flee a fight against a boss !");
-                        }
-                        case 4 -> {
-                            enemy.setStatus("Friendly");
-                            return true;
-                        }
-                    }
-                } catch(InputMismatchException e){
-                    System.out.println("You must use a number to choose your action.");
-                }
-            } else {
-                System.out.println("The Death Eaters have " + EnemyHP + " health points." + "\nWhat do you wish to do ?" + "\n1: Use a spell." + "\n2: Open your inventory." + "\n3: Flee.");
                 try {
                     int WizardChoice = scanner.nextInt();
                     scanner.nextLine();
@@ -713,67 +731,36 @@ public abstract class Character {
                     System.out.println("You must use a number to choose your action.");
                 }
             }
-        }
         return false;
     }
 
     private static boolean WizardAttackBellatrixLestrange(Wizard wizard, Enemy enemy, int Timer) {
         Scanner scanner = new Scanner(System.in);
         int EnemyHP = enemy.getHealth_point();
-        System.out.println("The battle against the Death Eaters is on !");
+        System.out.println("The final battle against Bellatrix Lestrange is on !");
+        System.out.println("Bellatrix Lestrange has " + EnemyHP + " health points." + "\nWhat do you wish to do ?" + "\n1: Use a spell." + "\n2: Open your inventory." + "\n3: Flee.");
         while (EnemyHP > 0) {
-            if (wizard.getHouse().getHouse_name() == House.SLYTHERIN.getHouse_name()) {
-                System.out.println("The Death Eaters have " + EnemyHP + " health points." + "\nWhat do you wish to do ?" + "\n1: Use a spell." + "\n2: Open your inventory." + "\n3: Flee." + "\n4: Joining forces with the Death Eaters.");
-                try {
-                    int WizardChoice = scanner.nextInt();
-                    scanner.nextLine();
+            try {
+                int WizardChoice = scanner.nextInt();
+                scanner.nextLine();
 
-                    if (WizardChoice < 1 || WizardChoice > 4) {
-                        System.out.println("You must choose a number between 1 and 4.");
-                    }
-
-                    switch (WizardChoice) {
-                        case 1 -> {
-                            return Using_Spells(wizard, enemy);
-                        }
-                        case 2 -> {
-                            return Inventory.openInventory(wizard, enemy, Timer);
-                        }
-                        case 3 -> {
-                            System.out.println("You can't flee a fight against a boss !");
-                        }
-                        case 4 -> {
-                            enemy.setStatus("Friendly");
-                            return true;
-                        }
-                    }
-                } catch(InputMismatchException e){
-                    System.out.println("You must use a number to choose your action.");
+                if (WizardChoice < 1 || WizardChoice > 3) {
+                    System.out.println("You must choose a number between 1 and 3.");
                 }
-            } else {
-                System.out.println("The Death Eaters have " + EnemyHP + " health points." + "\nWhat do you wish to do ?" + "\n1: Use a spell." + "\n2: Open your inventory." + "\n3: Flee.");
-                try {
-                    int WizardChoice = scanner.nextInt();
-                    scanner.nextLine();
 
-                    if (WizardChoice < 1 || WizardChoice > 3) {
-                        System.out.println("You must choose a number between 1 and 3.");
+                switch (WizardChoice) {
+                    case 1 -> {
+                        return Using_Spells(wizard, enemy);
                     }
-
-                    switch (WizardChoice) {
-                        case 1 -> {
-                            return Using_Spells(wizard, enemy);
-                        }
-                        case 2 -> {
-                            return Inventory.openInventory(wizard, enemy, Timer);
-                        }
-                        case 3 -> {
-                            System.out.println("You can't flee a fight against a boss !");
-                        }
+                    case 2 -> {
+                        return Inventory.openInventory(wizard, enemy, Timer);
                     }
-                } catch(InputMismatchException e){
-                    System.out.println("You must use a number to choose your action.");
+                    case 3 -> {
+                        System.out.println("You can't flee a fight against a boss !");
+                    }
                 }
+            } catch(InputMismatchException e){
+                System.out.println("You must use a number to choose your action.");
             }
         }
         return false;
@@ -916,12 +903,34 @@ public abstract class Character {
         Scanner scanner = new Scanner(System.in);
         int WizardHP = wizard.getHealth_point();
         int EnemyDamage = Enemy.Voldemort_Final_Appearance.getAttack_damage() - (wizard.getDefense() + wizard.getResistanceBonus());
-        if (EnemyDamage >= 0) {
-            wizard.setHealth_point(WizardHP - EnemyDamage);
+        Random random = new Random();
+        int nbr_random = random.nextInt(101);
+        if (nbr_random <= 40) {
+            EnemyDamage = Enemy.Voldemort_Final_Appearance.getAttack_damage() - (wizard.getDefense() + wizard.getResistanceBonus());
+            System.out.println("Voldemort uses the Stupefix spell against you and takes " + EnemyDamage + " health points away from you !");
+            if (EnemyDamage >= 0) {
+                wizard.setHealth_point(WizardHP - EnemyDamage);
+            } else {
+                EnemyDamage = 0;
+            }
+        } else if (nbr_random > 40 && nbr_random <= 80) {
+            enemy.Voldemort_Final_Appearance.setDefense(enemy.Voldemort_Final_Appearance.getDefense() + Spell.Protego.getPower());
+            System.out.println("Voldemort uses the Protego spell to protect himself." + "\nHe now has " + enemy.getDefense() + " defense.");
         } else {
-            EnemyDamage = 0;
+            int Accuracy_random = random.nextInt(101);
+            int Accuracy =  Spell.Avada_Kedavra.getAccuracy();
+            if (Accuracy_random <= Accuracy) {
+                EnemyDamage = (Spell.Avada_Kedavra.getPower()) - (wizard.getDefense() + wizard.getResistanceBonus());
+                System.out.println("Voldemort uses the Avada Kedavra spell against you and takes " + EnemyDamage + " health points away from you !");
+                if (EnemyDamage >= 0) {
+                    wizard.setHealth_point(WizardHP - EnemyDamage);
+                } else {
+                    EnemyDamage = 0;
+                }
+            } else {
+                System.out.println("Voldemort tried to use the Avada Kedavra spell against you but he missed.");
+            }
         }
-        System.out.println("Voldemort use the Stupefix spell against you and takes " + EnemyDamage + " health points away from you !");
         if (wizard.getHealth_point() <= 0) {
             System.out.println("You were killed by Voldemort during your epic battle.");
             return false;
@@ -934,13 +943,21 @@ public abstract class Character {
     private static boolean BellatrixLestrangeAttackWizard(Wizard wizard, Enemy enemy) {
         Scanner scanner = new Scanner(System.in);
         int WizardHP = wizard.getHealth_point();
-        int EnemyDamage = Enemy.Bellatrix_Lestrange.getAttack_damage() - (wizard.getDefense() + wizard.getResistanceBonus());
-        if (EnemyDamage >= 0) {
-            wizard.setHealth_point(WizardHP - EnemyDamage);
+        int EnemyDamage = 0;
+        Random random = new Random();
+        int nbr_random = random.nextInt(101);
+        if (nbr_random <= 50) {
+            EnemyDamage = (Enemy.Bellatrix_Lestrange.getAttack_damage() + Spell.Stupefix.getPower()) - (wizard.getDefense() + wizard.getResistanceBonus());
+            System.out.println("Bellatrix Lestrange uses the Stupefix spell against you and takes " + EnemyDamage + " health points away from you !");
+            if (EnemyDamage >= 0) {
+                wizard.setHealth_point(WizardHP - EnemyDamage);
+            } else {
+                EnemyDamage = 0;
+            }
         } else {
-            EnemyDamage = 0;
+            enemy.Bellatrix_Lestrange.setDefense(enemy.Bellatrix_Lestrange.getDefense() + Spell.Protego.getPower());
+            System.out.println("Bellatrix Lestrange uses the Protego spell to protect herself." + "\nShe now has " + enemy.getDefense() + " defense.");
         }
-        System.out.println("Bellatrix Lestrange use the Stupefix spell against you and takes " + EnemyDamage + " health points away from you !");
         if (wizard.getHealth_point() <= 0) {
             System.out.println("You were killed by Bellatrix Lestrange during your epic battle.");
             return false;
