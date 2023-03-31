@@ -55,7 +55,19 @@ public class Introduction {
         System.out.println("Finally, you will join a house. To do this, we will place the Sorting Hat on your head and it will assign you to your house.");
         SortingHat sortingHat = new SortingHat();
         House HouseSelected = sortingHat.Select_House();
-        Wizard wizard = new Wizard(name, PetChosen, wand, HouseSelected, spells, potions);
+        Wizard wizard = null;
+        if (HouseSelected.getHouse_name() == House.HUFFLEPUFF.getHouse_name()) {
+            wizard = new Wizard(name, PetChosen, wand, HouseSelected, spells, potions, 0, 0, 20, 0);
+        }
+        if (HouseSelected.getHouse_name() == House.RAVENCLAW.getHouse_name()) {
+            wizard = new Wizard(name, PetChosen, wand, HouseSelected, spells, potions, 10, 0, 0, 0);
+        }
+        if (HouseSelected.getHouse_name() == House.GRYFFINDOR.getHouse_name()) {
+            wizard = new Wizard(name, PetChosen, wand, HouseSelected, spells, potions, 0, 0, 0, 10);
+        }
+        if (HouseSelected.getHouse_name() == House.SLYTHERIN.getHouse_name()) {
+            wizard = new Wizard(name, PetChosen, wand, HouseSelected, spells, potions, 0, 10, 0, 0);
+        }
         String stats = wizard.Stats(wizard);
         System.out.println(stats);
         return wizard;

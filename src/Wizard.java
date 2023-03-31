@@ -17,8 +17,17 @@ public class Wizard extends Character {
             this.house = house;
             this.knownspells = spells;
             this.potions = potions;
-        }
+    }
 
+    public Wizard(String name, Pet pet, Wand wand, House house, ArrayList<Spell> spells, ArrayList<Potion> potions, int accuracyBonus, int powerBonus, int efficiencyPotionsBonus, int resistanceBonus) {
+        super(name, 500,500, 20 , 20 , 40, accuracyBonus, powerBonus, efficiencyPotionsBonus, resistanceBonus, 200, true);
+        this.name = name;
+        this.pet = pet;
+        this.wand = wand;
+        this.house = house;
+        this.knownspells = spells;
+        this.potions = potions;
+    }
     public String Stats(Wizard wizard) {
         return "\nYour Statistics :" + "\nName: " + wizard.getName() + "\nHealth Points: " + wizard.getHealth_point() + "/" + wizard.getMax_Health_point() + "\nDefense: " + wizard.getDefense() + "\nCombat Power: " + wizard.getCombat_power() + "\nPotion Efficiency: " + wizard.getEfficiencyPotionsBonus() + "\nMoney: " + wizard.getMoney() + "€";
     }

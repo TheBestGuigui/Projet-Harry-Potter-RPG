@@ -11,6 +11,7 @@ public class Game {
         new Level_4().level4(wizard);
         new Level_5().level5(wizard);
         new Level_6().level6(wizard);
+        new Level_7().level7(wizard);
     }
 
 }
