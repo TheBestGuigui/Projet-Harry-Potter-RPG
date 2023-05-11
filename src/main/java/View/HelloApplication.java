@@ -17,11 +17,11 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         this.stage = stage;
-        GameView gameView = new GameView();
-        GamePresenter gamePresenter = new GamePresenter(gameView, this);
+        StartGame startGame = new StartGame();
+        GamePresenter gamePresenter = new GamePresenter(startGame, this);
         System.out.println("A new game has been started");
         System.out.println("A new game has been started");
-        Scene scene = new Scene(GameView, 600, 600);
+        Scene scene = new Scene(startGame, 600, 600);
         this.stage.setTitle("Hello!");
         this.stage.setScene(scene);
         this.stage.show();
