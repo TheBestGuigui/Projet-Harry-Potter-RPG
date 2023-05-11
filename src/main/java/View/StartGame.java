@@ -5,13 +5,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class StartGame extends VBox {
-    Label titleLabel = new Label("Harry Potter Game");
-    Button startButton = new Button("New Game");
+    Label TitleLabel = new Label("Harry Potter Game");
+    Button StartButton = new Button("New Game");
 
     public StartGame() {
-        titleLabel.getStyleClass().add("title");
-        startButton.getStyleClass().add("btn");
-        this.getChildren().addAll(titleLabel, startButton);
+        TitleLabel.getStyleClass().add("MainTitle");
+        StartButton.getStyleClass().add("StartButton");
+        this.getChildren().addAll(TitleLabel, StartButton);
     }
 
 

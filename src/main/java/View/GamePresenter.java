@@ -14,13 +14,15 @@ import java.util.Objects;
 public class GamePresenter {
     private Stage stage;
     private StartGame startGame;
+    public static Wizard wizard;
 
     public GamePresenter(StartGame startGame, HelloApplication helloApplication) {
         this.startGame = startGame;
-        this.startGame.startButton.setOnAction(this::onPlayAction);
+        this.startGame.StartButton.setOnAction(this::onPlayAction);
     }
 
     public void onPlayAction(ActionEvent e) {
-        new Game().StartGame();
+        wizard = new Introduction().Introduction();
+
     }
 }

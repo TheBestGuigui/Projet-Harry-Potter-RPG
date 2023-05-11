@@ -1,6 +1,7 @@
 package View;
 
 import HP.Game.Game;
+import HP.Game.Wizard;
 import View.GameView;
 import View.GamePresenter;
 
@@ -20,7 +21,7 @@ public class HelloApplication extends Application {
         StartGame startGame = new StartGame();
         GamePresenter gamePresenter = new GamePresenter(startGame, this);
         System.out.println("A new game has been started");
-        Scene scene = new Scene(startGame, 600, 600);
+        Scene scene = new Scene(startGame, 900, 900);
         this.stage.setTitle("Hello!");
         this.stage.setScene(scene);
         this.stage.show();
@@ -29,5 +30,4 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
-
 }

@@ -1,0 +1,9 @@
+.MainTitle {
+    -fx-alignment: center;
+    -fx-font-size: 60px;
+}
+
+.StartButton {
+    -fx-alignment: center;
+    -fx-font-size: 800px;
+}
