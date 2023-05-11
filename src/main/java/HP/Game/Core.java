@@ -1,0 +1,30 @@
+package HP.Game;
+
+public enum Core {
+    PHOENIX_FEATHER(0),
+    DRAGON_HEARTSTRING(1),
+    UNICORN_TAIL_HAIR(2),
+    VEELA_HAIR(3),
+    THESTRAL_TAIL_HAIR(4),
+    TROLL_WHISKER(5),
+    CORAL(6),
+    DITTANY_STALK(7),
+    THUNDERBIRD_TAIL_FEATHER(8),
+    WAMPUS_CAT_HAIR(9),
+    WHITE_RIVER_MONSTER_SPINE(10),
+    ROUGAROU_HAIR(11),
+    HORNED_SERPENT_HORN(12),
+    SNALLYGASTER_HEARTSTRING(13),
+    JACKALOPE_ANTLER(14),
+    KNEAZLE_WHISKER(15),
+    KELPIE_HAIR(16),
+    BASILISK_HORN(17),
+    CURUPIRA_HAIR(18),
+    AFRICAN_MERMAID_HAIR(19),
+    FAIRY_WING(20);
+    public final int index;
+
+    private Core(int index) {
+        this.index = index;
+    }
+}
