@@ -20,7 +20,6 @@ public class HelloApplication extends Application {
         StartGame startGame = new StartGame();
         GamePresenter gamePresenter = new GamePresenter(startGame, this);
         System.out.println("A new game has been started");
-        System.out.println("A new game has been started");
         Scene scene = new Scene(startGame, 600, 600);
         this.stage.setTitle("Hello!");
         this.stage.setScene(scene);
