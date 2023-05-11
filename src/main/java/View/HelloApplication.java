@@ -22,7 +22,7 @@ public class HelloApplication extends Application {
         GamePresenter gamePresenter = new GamePresenter(startGame, this);
         System.out.println("A new game has been started");
         Scene scene = new Scene(startGame, 900, 900);
-        this.stage.setTitle("Hello!");
+        this.stage.setTitle("Jeu Harry Potter - CHAPUIS Guillaume");
         this.stage.setScene(scene);
         this.stage.show();
     }
