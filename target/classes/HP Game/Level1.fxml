@@ -12,14 +12,14 @@
                <children>
                   <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
                      <children>
-                        <ProgressBar minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" progress="0.0" />
+                        <ProgressBar fx:id="WizardHPBar" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" progress="0.0" />
                         <Label fx:id="WizardHP" text="Label" />
                         <ImageView fx:id="ImageWizard" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
                      <children>
-                        <ProgressBar minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" progress="0.0" />
+                        <ProgressBar fx:id="EnemyHPBar" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" progress="0.0" />
                         <Label fx:id="EnemyHP" text="Label" />
                         <ImageView fx:id="ImageEnemy" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
@@ -37,7 +37,7 @@
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
                         <ListView fx:id="List" prefHeight="200.0" prefWidth="200.0" />
-                        <Button mnemonicParsing="false" text="Validate Action" />
+                        <Button fx:id="ValidateAction" mnemonicParsing="false" onAction="#WizardattackEnemy" text="Validate Action" />
                      </children>
                   </VBox>
                </children>

@@ -415,7 +415,7 @@ public abstract class Character {
         return true;
     }
 
-    private static boolean WizardAttackTroll(Wizard wizard, Enemy enemy, int Timer) {
+    public static boolean WizardAttackTroll(Wizard wizard, Enemy enemy, int Timer) {
         Scanner scanner = new Scanner(System.in);
         int EnemyHP = enemy.getHealth_point();
         System.out.println("The battle against the Troll is on !");
@@ -801,7 +801,7 @@ public abstract class Character {
         return false;
     }
 
-    private static boolean TrollAttackWizard(Wizard wizard, Enemy enemy) {
+    public static boolean TrollAttackWizard(Wizard wizard, Enemy enemy) {
         Scanner scanner = new Scanner(System.in);
         int WizardHP = wizard.getHealth_point();
         int EnemyDamage = Enemy.troll.getCombat_power() - (wizard.getDefense() + wizard.getResistanceBonus());
