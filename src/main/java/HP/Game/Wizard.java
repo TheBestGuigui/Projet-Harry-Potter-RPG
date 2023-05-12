@@ -30,6 +30,8 @@ public class Wizard extends Character {
         this.knownspells = spells;
         this.potions = potions;
     }
+
+
     public String Stats(Wizard wizard) {
         return "\nYour Statistics :" + "\nName: " + wizard.getName() + "\nHealth Points: " + wizard.getHealth_point() + "/" + wizard.getMax_Health_point() + "\nDefense: " + wizard.getDefense() + "\nCombat Power: " + wizard.getCombat_power() + "\nHP.Game.Potion Efficiency: " + wizard.getEfficiencyPotionsBonus() + "\nMoney: " + wizard.getMoney() + "€";
     }

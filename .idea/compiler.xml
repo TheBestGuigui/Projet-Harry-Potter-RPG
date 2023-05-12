@@ -9,8 +9,5 @@
         <module name="Projet Harry Potter RPG" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Projet Harry Potter RPG" target="19" />
-    </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,11 +1,8 @@
 package View;
 
-import HP.Game.Game;
-import HP.Game.Wizard;
-import View.GameView;
-import View.GamePresenter;
-
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -17,15 +14,16 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/HP Game/Main Start.fxml"));
+        stage.setTitle("Hello World");
+        stage.setScene(new Scene(root, 800, 600));
         this.stage = stage;
-        StartGame startGame = new StartGame();
-        GamePresenter gamePresenter = new GamePresenter(startGame, this);
         System.out.println("A new game has been started");
-        Scene scene = new Scene(startGame, 900, 900);
         this.stage.setTitle("Jeu Harry Potter - CHAPUIS Guillaume");
-        this.stage.setScene(scene);
         this.stage.show();
     }
+
 
     public static void main(String[] args) {
         launch();
