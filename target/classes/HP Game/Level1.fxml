@@ -13,23 +13,35 @@
                   <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
                      <children>
                         <ProgressBar minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" progress="0.0" />
+                        <Label fx:id="WizardHP" text="Label" />
                         <ImageView fx:id="ImageWizard" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
                      <children>
                         <ProgressBar minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" progress="0.0" />
+                        <Label fx:id="EnemyHP" text="Label" />
                         <ImageView fx:id="ImageEnemy" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </VBox>
                </children></HBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button mnemonicParsing="false" text="Use Spells" />
-                  <Button mnemonicParsing="false" text="Open Inventory" />
-                  <Button mnemonicParsing="false" text="Flee" />
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="UseSpells" mnemonicParsing="false" onAction="#showSpell" text="Use Spells" />
+                        <Button fx:id="OpenInventory" mnemonicParsing="false" text="Open Inventory" />
+                        <Button fx:id="Flee" mnemonicParsing="false" text="Flee" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ListView fx:id="List" prefHeight="200.0" prefWidth="200.0" />
+                        <Button mnemonicParsing="false" text="Validate Action" />
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </HBox>
          </children>
       </VBox>
    </children>

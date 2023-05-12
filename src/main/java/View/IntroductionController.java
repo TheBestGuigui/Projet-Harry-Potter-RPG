@@ -68,6 +68,8 @@ public class IntroductionController {
         }
         if (house == House.SLYTHERIN.getHouse_name()) {
             wizard = new Wizard(name, Pet.valueOf(pet), new Wand(), House.valueOf(house), spells, potions, 0, 10, 0, 0);
+        }else{
+            wizard = new Wizard(name, Pet.valueOf(pet), new Wand(), House.values()[(int) (House.values().length * Math.random())], spells, potions, 0, 10, 0, 0);
         }
 
 

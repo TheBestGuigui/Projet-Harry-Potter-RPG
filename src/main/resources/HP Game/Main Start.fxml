@@ -26,7 +26,7 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="StartGameBTN" mnemonicParsing="false" onAction="#startGame" prefHeight="51.0" prefWidth="127.0" text="Start Game" />
+            <Button fx:id="startGameButton" mnemonicParsing="false" onAction="#startGame" prefHeight="51.0" prefWidth="127.0" text="Start Game" />
          </children>
       </VBox>
    </children>

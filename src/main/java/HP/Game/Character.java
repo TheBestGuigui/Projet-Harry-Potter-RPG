@@ -804,7 +804,7 @@ public abstract class Character {
     private static boolean TrollAttackWizard(Wizard wizard, Enemy enemy) {
         Scanner scanner = new Scanner(System.in);
         int WizardHP = wizard.getHealth_point();
-        int EnemyDamage = Enemy.troll.getAttack_damage() - (wizard.getDefense() + wizard.getResistanceBonus());
+        int EnemyDamage = Enemy.troll.getCombat_power() - (wizard.getDefense() + wizard.getResistanceBonus());
         if (EnemyDamage >= 0) {
             wizard.setHealth_point(WizardHP - EnemyDamage);
         } else {
@@ -823,7 +823,7 @@ public abstract class Character {
     private static boolean BasilicAttackWizard(Wizard wizard, Enemy enemy) {
         Scanner scanner = new Scanner(System.in);
         int WizardHP = wizard.getHealth_point();
-        int EnemyDamage = Enemy.basilic.getAttack_damage() - (wizard.getDefense() + wizard.getResistanceBonus());
+        int EnemyDamage = Enemy.basilic.getCombat_power() - (wizard.getDefense() + wizard.getResistanceBonus());
         if (EnemyDamage >= 0) {
             wizard.setHealth_point(WizardHP - EnemyDamage);
         } else {
@@ -842,7 +842,7 @@ public abstract class Character {
     private static boolean DementorAttackWizard(Wizard wizard, Enemy enemy) {
         Scanner scanner = new Scanner(System.in);
         int WizardHP = wizard.getHealth_point();
-        int EnemyDamage = Enemy.Dementor.getAttack_damage() - (wizard.getDefense() + wizard.getResistanceBonus());
+        int EnemyDamage = Enemy.Dementor.getCombat_power() - (wizard.getDefense() + wizard.getResistanceBonus());
         if (EnemyDamage >= 0) {
             wizard.setHealth_point(WizardHP - EnemyDamage);
         } else {
@@ -861,7 +861,7 @@ public abstract class Character {
     private static boolean PeterPettigrowAttackWizard(Wizard wizard, Enemy enemy) {
         Scanner scanner = new Scanner(System.in);
         int WizardHP = wizard.getHealth_point();
-        int EnemyDamage = Enemy.Peter_Pettigrow.getAttack_damage() - (wizard.getDefense() + wizard.getResistanceBonus());
+        int EnemyDamage = Enemy.Peter_Pettigrow.getCombat_power() - (wizard.getDefense() + wizard.getResistanceBonus());
         if (EnemyDamage >= 0) {
             wizard.setHealth_point(WizardHP - EnemyDamage);
         } else {
@@ -880,7 +880,7 @@ public abstract class Character {
     private static boolean Voldemort_First_AppearanceAttackWizard(Wizard wizard, Enemy enemy) {
         Scanner scanner = new Scanner(System.in);
         int WizardHP = wizard.getHealth_point();
-        int EnemyDamage = Enemy.Voldemort_First_Appearance.getAttack_damage() - (wizard.getDefense() + wizard.getResistanceBonus());
+        int EnemyDamage = Enemy.Voldemort_First_Appearance.getCombat_power() - (wizard.getDefense() + wizard.getResistanceBonus());
         if (EnemyDamage >= 0) {
             wizard.setHealth_point(WizardHP - EnemyDamage);
         } else {
@@ -899,7 +899,7 @@ public abstract class Character {
     private static boolean DoloresAttackWizard(Wizard wizard, Enemy enemy) {
         Scanner scanner = new Scanner(System.in);
         int WizardHP = wizard.getHealth_point();
-        int EnemyDamage = Enemy.Dolores_Ombrage.getAttack_damage() - (wizard.getDefense() + wizard.getResistanceBonus());
+        int EnemyDamage = Enemy.Dolores_Ombrage.getCombat_power() - (wizard.getDefense() + wizard.getResistanceBonus());
         if (EnemyDamage >= 0) {
             wizard.setHealth_point(WizardHP - EnemyDamage);
         } else {
@@ -918,7 +918,7 @@ public abstract class Character {
     private static boolean DeathEaterAttackWizard(Wizard wizard, Enemy enemy) {
         Scanner scanner = new Scanner(System.in);
         int WizardHP = wizard.getHealth_point();
-        int EnemyDamage = Enemy.Death_Eater.getAttack_damage() - (wizard.getDefense() + wizard.getResistanceBonus());
+        int EnemyDamage = Enemy.Death_Eater.getCombat_power() - (wizard.getDefense() + wizard.getResistanceBonus());
         if (EnemyDamage >= 0) {
             wizard.setHealth_point(WizardHP - EnemyDamage);
         } else {
@@ -937,11 +937,11 @@ public abstract class Character {
     private static boolean Voldemort_Final_AppearanceAttackWizard(Wizard wizard, Enemy enemy) {
         Scanner scanner = new Scanner(System.in);
         int WizardHP = wizard.getHealth_point();
-        int EnemyDamage = Enemy.Voldemort_Final_Appearance.getAttack_damage() - (wizard.getDefense() + wizard.getResistanceBonus());
+        int EnemyDamage = Enemy.Voldemort_Final_Appearance.getCombat_power() - (wizard.getDefense() + wizard.getResistanceBonus());
         Random random = new Random();
         int nbr_random = random.nextInt(101);
         if (nbr_random <= 40) {
-            EnemyDamage = Enemy.Voldemort_Final_Appearance.getAttack_damage() - (wizard.getDefense() + wizard.getResistanceBonus());
+            EnemyDamage = Enemy.Voldemort_Final_Appearance.getCombat_power() - (wizard.getDefense() + wizard.getResistanceBonus());
             System.out.println("Voldemort uses the Stupefix spell against you and takes " + EnemyDamage + " health points away from you !");
             if (EnemyDamage >= 0) {
                 wizard.setHealth_point(WizardHP - EnemyDamage);
@@ -982,7 +982,7 @@ public abstract class Character {
         Random random = new Random();
         int nbr_random = random.nextInt(101);
         if (nbr_random <= 50) {
-            EnemyDamage = (Enemy.Bellatrix_Lestrange.getAttack_damage() + Spell.Stupefix.getPower()) - (wizard.getDefense() + wizard.getResistanceBonus());
+            EnemyDamage = (Enemy.Bellatrix_Lestrange.getCombat_power() + Spell.Stupefix.getPower()) - (wizard.getDefense() + wizard.getResistanceBonus());
             System.out.println("Bellatrix Lestrange uses the Stupefix spell against you and takes " + EnemyDamage + " health points away from you !");
             if (EnemyDamage >= 0) {
                 wizard.setHealth_point(WizardHP - EnemyDamage);

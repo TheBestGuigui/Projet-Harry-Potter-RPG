@@ -1,53 +1,19 @@
 package HP.Game;
 
-public class Enemy {
-    private String name;
+public class Enemy extends AbstractEnemy{
     private String status;
-    private int health_point;
-    private int attack_damage;
-    private int defense;
 
     public Enemy(String name, String status, int health_point, int attack_damage, int defense) {
-        this.name = name;
+        super(name, health_point, health_point, attack_damage, defense);
         this.status = status;
-        this.health_point = health_point;
-        this.attack_damage = attack_damage;
-        this.defense = defense;
     }
 
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getStatus() {
         return status;
     }
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public int getHealth_point() {
-        return health_point;
-    }
-    public void setHealth_point(int health_point) {
-        this.health_point = health_point;
-    }
-
-    public int getAttack_damage() {
-        return attack_damage;
-    }
-    public void setAttack_damage(int attack_damage) {
-        this.attack_damage = attack_damage;
-    }
-
-    public int getDefense() {
-        return defense;
-    }
-    public void setDefense(int defense) {
-        this.defense = defense;
     }
 
     public static Enemy troll = new Enemy("The Troll of the dungeon", "Hostile", 300,50, 10);
