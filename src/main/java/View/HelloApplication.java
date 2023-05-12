@@ -21,9 +21,9 @@ public class HelloApplication extends Application {
         this.stage = stage;
         System.out.println("A new game has been started");
         this.stage.setTitle("Jeu Harry Potter - CHAPUIS Guillaume");
+        stage.setResizable(false);
         this.stage.show();
     }
-
 
     public static void main(String[] args) {
         launch();

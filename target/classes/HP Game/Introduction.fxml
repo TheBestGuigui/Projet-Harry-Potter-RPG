@@ -49,7 +49,7 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
             </HBox>
-            <Button fx:id="CreateWizard" mnemonicParsing="false" text="Save" />
+            <Button fx:id="CreateWizard" mnemonicParsing="false" onAction="#startLevel1" text="Save" />
          </children>
       </VBox>
    </children>
